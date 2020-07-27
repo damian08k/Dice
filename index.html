@@ -4,12 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <title>Dice</title>
 </head>
 
 <body>
+    <div class="start-game-window">
+        <!-- Ending... -->
+    </div>
+    <div class="main-container">
+        <div class="game-area">
+            <button class="game-area__rules">Zasady</button>
 
+            <div class="player-info game-area__player-info">
+                <h1 class="player-info__round">
+                    Runda
+                    <span class="player-info__round-number">X</span>
+                </h1>
+                <p class="player-info__player">
+                    Gracz:
+                    <span class="player-info__player-name">Y</span>
+                </p>
+                <p class="player-info__throws">
+                    Rzuty:
+                    <span class="player-info__throw">Z1</span>
+                    <span class="player-info__throw">Z2</span>
+                    <span class="player-info__throw">Z3</span>
+                </p>
+                <button class="player-info_dice-throw">Rzuć kośćmi!</button>
+            </div>
+
+            <div class="dice-area">
+                <h2 class="dice-area__title">Wylosowane kości</h2>
+                <div class="dice-area__dice">
+                    <!-- Randomly showing dice in that area -->
+                </div>
+            </div>
+
+            <table class="stats">
+                <capion class="stats__tab-title">Statystyki</capion>
+                <thead>
+                    <tr>
+                        <th class="stats__options">Opcje</th>
+                        <th class="stats__first-player">P1</th>
+                        <th class="stats__second-player">P2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="stats__option-name">Jedynki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Dwójki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Trójki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Czwórki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Piątki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Szóstki</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Premia</th>
+                        <td class="stats__special-cell">0</td>
+                        <td class="stats__special-cell">0</td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Suma</th>
+                        <td class="stats__special-cell">0</td>
+                        <td class="stats__special-cell">0</td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">3 jednakowe</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">4 jednakowe</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Full</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Mały strit</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Duży strit</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Generał</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Szansa</th>
+                        <td class="stats__first-column"></td>
+                        <td class="stats__second-column"></td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Suma</th>
+                        <td class="stats__special-cell">0</td>
+                        <td class="stats__special-cell">0</td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Razem</th>
+                        <td class="stats__special-cell">0</td>
+                        <td class="stats__special-cell">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
