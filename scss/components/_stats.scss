@@ -1,0 +1,44 @@
+.stats {
+
+    border-collapse: collapse;
+    border: 1px solid $black-color;
+    margin: $main-margin * 2;
+
+    th,
+    tr,
+    td {
+        border: 1px solid $black-color;
+    }
+
+    &__tab-title {
+        padding: $main-padding;
+        font-size: $headings-fz;
+        font-style: italic;
+        color: $special-color;
+    }
+
+    &__options {
+        width: 20%;
+    }
+
+    &__first-player,
+    &__second-player,
+    &__special {
+        text-align: center;
+    }
+
+
+    &__option-name {
+        padding: $main-padding;
+    }
+
+    &__first-column,
+    &__second-column {
+        width: 40%;
+    }
+
+    &__special {
+        background-color: $special-color;
+    }
+
+}

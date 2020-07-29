@@ -1,1 +1,10 @@
 @import "./functions/reset";
+@import "./functions/variables";
+@import "./functions/mixins";
+@import "./functions/main-styles";
+
+@import "./components/main-container";
+@import "./components/game-area";
+@import "./components/player-info";
+@import "./components/dice-area";
+@import "./components/stats";

@@ -1,0 +1,22 @@
+body {
+    height: 100vh;
+    font-family: $font-family;
+}
+
+.btn {
+    font-family: $font-family;
+    background-color: $white-color;
+    border: 1px solid $black-color;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: $black-color;
+    color: $white-color;
+}
+
+.btn:focus {
+    transition: none;
+    outline-color: $outline-color;
+}

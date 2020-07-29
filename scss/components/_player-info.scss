@@ -1,0 +1,45 @@
+.player-info {
+
+    border: 1px solid $black-color;
+    margin: $main-margin * 2;
+
+    &__round {
+        padding: $main-padding 0;
+        font-size: $headings-fz;
+        font-weight: $font-weight-headings;
+        text-align: center;
+    }
+
+    &__player {
+        padding: 0 0 $main-padding * 2 $main-padding;
+        font-size: $main-fz + 2;
+    }
+
+    &__throws {
+        display: flex;
+        align-items: center;
+        padding: 0 0 $main-padding * 2 $main-padding;
+
+        &-title {
+            font-size: $main-fz + 2;
+        }
+    }
+
+    &__throw {
+        display: inline-block;
+        margin-left: $main-margin;
+        width: 25px;
+        height: 25px;
+        border: 2px solid $black-color;
+        border-radius: 50%;
+        background-color: $throws-bgc-color;
+    }
+
+    &__dice-throw {
+        display: block;
+        margin: $main-margin * 2 auto;
+        padding: $main-padding * 1.5 $main-padding * 3;
+        border-width: 2px;
+        border-radius: 10px;
+    }
+}
