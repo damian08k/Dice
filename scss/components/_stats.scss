@@ -4,6 +4,10 @@
     border: 1px solid $black-color;
     margin: $main-margin * 2;
 
+    @include mq(mobileLarge) {
+        height: calc(100% - 41px - 20px);
+    }
+
     th,
     tr,
     td {
@@ -19,12 +23,20 @@
 
     &__options {
         width: 20%;
+
+        @include mq(mobileLarge) {
+            font-size: $main-fz + 2;
+        }
     }
 
     &__first-player,
     &__second-player,
     &__special {
         text-align: center;
+
+        @include mq(mobileLarge) {
+            font-size: $main-fz + 2;
+        }
     }
 
 

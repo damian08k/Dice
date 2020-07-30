@@ -1,6 +1,10 @@
 body {
     height: 100vh;
     font-family: $font-family;
+
+    @include mq(mobileXMedium) {
+        height: auto;
+    }
 }
 
 .btn {

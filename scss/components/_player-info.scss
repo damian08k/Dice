@@ -3,16 +3,36 @@
     border: 1px solid $black-color;
     margin: $main-margin * 2;
 
+
+    @include mq(mobileXMedium) {
+        display: grid;
+        grid-column: 1fr;
+        grid-row: 1fr 1fr 1fr;
+    }
+
+    @include mq(mobileLarge) {
+        margin-top: calc(10px + 31px + 10px);
+    }
+
     &__round {
         padding: $main-padding 0;
         font-size: $headings-fz;
         font-weight: $font-weight-headings;
         text-align: center;
+
+        @include mq(mobileXMedium) {
+            font-size: $headings-fz + 5;
+        }
     }
 
     &__player {
         padding: 0 0 $main-padding * 2 $main-padding;
         font-size: $main-fz + 2;
+
+        @include mq(mobileXMedium) {
+            padding-left: $main-padding * 3;
+            font-size: $main-fz + 5;
+        }
     }
 
     &__throws {
@@ -20,8 +40,16 @@
         align-items: center;
         padding: 0 0 $main-padding * 2 $main-padding;
 
+        @include mq(mobileXMedium) {
+            padding-left: $main-padding * 3;
+        }
+
         &-title {
             font-size: $main-fz + 2;
+
+            @include mq(mobileXMedium) {
+                font-size: $main-fz + 5;
+            }
         }
     }
 
@@ -41,5 +69,17 @@
         padding: $main-padding * 1.5 $main-padding * 3;
         border-width: 2px;
         border-radius: 10px;
+
+        @include mq(mobileXMedium) {
+            font-size: $main-fz + 5;
+        }
+    }
+
+    &__main-player-info,
+    &__dice-throw,
+    &__round {
+        @include mq(mobileXMedium) {
+            align-self: center;
+        }
     }
 }
