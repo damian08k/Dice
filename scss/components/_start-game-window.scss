@@ -1,0 +1,84 @@
+.start-game-window-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: cadetblue;
+}
+
+.start-game-window {
+    width: 80%;
+    max-width: 400px;
+    padding: $main-padding * 5;
+    border: 3px solid black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    background-color: $white-color;
+
+    &__choose-players,
+    &__players-names {
+        margin: $main-margin * 2 0;
+    }
+
+    &__start-game {
+        margin: $main-margin * 2 0;
+        padding: $main-padding;
+        font-size: $main-fz + 10;
+        border-radius: 20px;
+        border-width: 2px;
+    }
+}
+
+.choose-players {
+    text-align: center;
+
+    &__title {
+        flex-basis: 100%;
+    }
+
+    &__count-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: $main-padding * 2 0;
+    }
+
+    &__plus-ico {
+        margin: 0 $main-padding * 2;
+        cursor: pointer;
+    }
+
+    &__minus-ico {
+        cursor: pointer;
+    }
+
+    &__title,
+    &__count-players,
+    &__plus-ico,
+    &__minus-ico {
+        font-size: $main-fz + 10;
+    }
+}
+
+.players-names {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        font-size: $main-fz + 8;
+    }
+
+    &__name {
+        margin: $main-margin * 2 0;
+        padding: $main-padding;
+        width: 100%;
+        border: 2px solid black;
+        border-radius: 40px;
+    }
+}

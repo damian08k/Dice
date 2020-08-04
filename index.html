@@ -9,11 +9,32 @@
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
     <title>Gra w kości</title>
+    <style>
+        .main-container {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="start-game-window">
-        <!-- Ending... -->
+    <div class="start-game-window-container">
+        <div class="start-game-window">
+            <div class="start-game-window__choose-players choose-players">
+                <p class="choose-players__title">Liczba graczy:</p>
+                <div class="choose-players__count-container">
+                    <p class="choose-players__count-players">1</p>
+                    <span class="far fa-plus-square choose-players__plus-ico"></span>
+                    <span class="far fa-minus-square choose-players__minus-ico"></span>
+                </div>
+            </div>
+            <div class="start-game-window__players-names players-names">
+                <label class="players-names__title" for="name-player-one">Nazwa gracza 1:</label>
+                <input class="players-names__name" type="text" name="name-player-one">
+                <label class="players-names__title" for="name-player-two">Nazwa gracza 2:</label>
+                <input class="players-names__name" class="players-name__name" type="text" name="name-player-two">
+            </div>
+            <button class="start-game-window__start-game btn">Rozpocznij grę</button>
+        </div>
     </div>
     <div class="main-container">
         <div class="game-area">
