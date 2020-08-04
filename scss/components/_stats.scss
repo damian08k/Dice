@@ -1,7 +1,7 @@
 .stats {
 
     border-collapse: collapse;
-    border: 1px solid $black-color;
+    border: $border;
     margin: $main-margin * 2;
 
     @include mq(mobileLarge) {
@@ -11,7 +11,7 @@
     th,
     tr,
     td {
-        border: 1px solid $black-color;
+        border: $border;
     }
 
     &__tab-title {
