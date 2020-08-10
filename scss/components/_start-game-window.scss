@@ -1,22 +1,19 @@
 .start-game-window-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex();
+    display: none;
     width: 100%;
     height: 100vh;
     background-color: cadetblue;
 }
 
 .start-game-window {
+    @include flex();
+    flex-direction: column;
     width: 80%;
     max-width: 400px;
     padding: $main-padding * 5;
     border: 3px solid black;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
     background-color: $white-color;
 
     &__choose-players,
@@ -41,9 +38,7 @@
     }
 
     &__count-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex();
         padding: $main-padding * 2 0;
     }
 
@@ -65,10 +60,8 @@
 }
 
 .players-names {
-    display: flex;
+    @include flex();
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
 
     &__title {
         font-size: $main-fz + 8;
@@ -80,5 +73,6 @@
         width: 100%;
         border: 2px solid black;
         border-radius: 40px;
+        outline-color: $outline-color;
     }
 }
