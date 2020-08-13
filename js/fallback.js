@@ -1,0 +1,1 @@
+alert("Twoja przeglądarka nie obsługuje najnowszych standardów, dlatego gra nie będzie działać poprawnie!");
