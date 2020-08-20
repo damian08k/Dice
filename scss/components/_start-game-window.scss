@@ -1,6 +1,6 @@
 .start-game-window-container {
     @include flex();
-    display: none;
+    // display: none;
     width: 100%;
     height: 100vh;
     background-color: cadetblue;
@@ -12,6 +12,7 @@
     width: 80%;
     max-width: 400px;
     padding: $main-padding * 5;
+    box-shadow: 0 -0 10px 10px $black-color;
     border: 3px solid black;
     border-radius: 20px;
     background-color: $white-color;
@@ -23,7 +24,7 @@
 
     &__start-game {
         margin: $main-margin * 2 0;
-        padding: $main-padding;
+        padding: $main-padding * 2;
         font-size: $main-fz + 10;
         border-radius: 20px;
         border-width: 2px;
@@ -74,5 +75,10 @@
         border: 2px solid black;
         border-radius: 40px;
         outline-color: $outline-color;
+    }
+
+    &__name--second,
+    &__title--second {
+        display: none;
     }
 }
