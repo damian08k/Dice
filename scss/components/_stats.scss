@@ -29,6 +29,11 @@
     }
 
     &__first-player,
+    &__second-player {
+        padding: $main-padding;
+    }
+
+    &__first-player,
     &__second-player,
     &__special {
         text-align: center;
