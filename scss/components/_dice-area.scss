@@ -4,7 +4,8 @@
     margin: $main-margin * 2;
 
     &__title {
-        padding: $main-padding 0;
+        height: 37.5px;
+        line-height: 37.5px;
         font-size: $headings-fz;
         font-weight: $font-weight-headings;
         text-align: center;
@@ -12,7 +13,7 @@
         &::after {
             content: "";
             display: block;
-            margin: 5px 0;
+            margin: $main-margin 0 0;
             width: 100%;
             height: 1.5px;
             background-color: $black-color;
@@ -20,6 +21,14 @@
     }
 
     &__dice {
-        height: 200px;
+        height: calc(100% - 37.5px);
+        background-color: rgb(3, 70, 3);
+    }
+
+    &__die {
+        margin: $main-margin * 2;
+        font-size: $main-fz * 3.3;
+        color: yellow;
+        cursor: pointer;
     }
 }

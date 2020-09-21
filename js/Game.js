@@ -16,6 +16,7 @@ class Game {
         this.mainGameContainer = document.querySelector(".main-container");
         this.firstPlayerName = document.querySelector(".stats__first-player");
         this.secondPlayerName = document.querySelector(".stats__second-player");
+        this.diceArea = document.querySelector(".dice-area__dice");
 
         this.roundNumber = document.querySelector(".player-info__round-number");
         this.playerName = document.querySelector(".player-info__player-name");
@@ -28,12 +29,12 @@ class Game {
         // other variables
         this.playersNames = [];
         this.diceClasses = [
-            "fas fa-dice-one",
-            "fas fa-dice-two",
-            "fas fa-dice-three",
-            "fas fa-dice-four",
-            "fas fa-dice-five",
-            "fas fa-dice-six"
+            "fa-dice-one",
+            "fa-dice-two",
+            "fa-dice-three",
+            "fa-dice-four",
+            "fa-dice-five",
+            "fa-dice-six"
         ];
     }
 
@@ -54,8 +55,17 @@ class Game {
         }
     }
 
+    createDice = (fiveDice, diceArea, diceClasses) => {
+        fiveDice.forEach(die => {
+            const span = document.createElement("span");
+            span.classList.add('dice-area__die', 'fas', diceClasses[die]);
+            diceArea.appendChild(span);
+        })
+    }
+
     firstThrowDice = () => {
         const firstFiveDice = this.randomNumberGenerator.generateRandomNumbers();
+        this.createDice(firstFiveDice, this.diceArea, this.diceClasses);
         console.log(firstFiveDice);
     }
 }

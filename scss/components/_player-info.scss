@@ -69,10 +69,7 @@
         padding: $main-padding * 1.5 $main-padding * 3;
         border-width: 2px;
         border-radius: 10px;
-
-        @include mq(mobileXMedium) {
-            font-size: $main-fz + 5;
-        }
+        font-size: $main-fz + 5;
     }
 
     &__main-player-info,
