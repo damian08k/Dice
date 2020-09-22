@@ -21,12 +21,18 @@
     }
 
     &__dice {
-        height: calc(100% - 37.5px);
+        position: relative;
+        height: 200px;
         background-color: rgb(3, 70, 3);
+
+        @include mq(mobileLarge) {
+            height: calc(100% - 37.5px);
+        }
     }
 
     &__die {
-        margin: $main-margin * 2;
+        position: absolute;
+        // margin: $main-margin * 2;
         font-size: $main-fz * 3.3;
         color: yellow;
         cursor: pointer;
