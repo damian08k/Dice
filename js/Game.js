@@ -55,17 +55,54 @@ class Game {
         }
     }
 
-    createDice = (fiveDice, diceArea, diceClasses) => {
-        fiveDice.forEach(die => {
+    checkOverlapping = (pX, pY, positions, dieSize) => {
+        for (let i = 0; i < positions.length; i++) {
+            const newPosX = pX;
+            const oldPosX = positions[i].posX;
+            const rightNewPosX = pX + (dieSize + 5);
+            const rightOldPosX = positions[i].posX + (dieSize + 5);
+            const newPosY = pY;
+            const oldPosY = positions[i].posY;
+            const bottomNewPosY = pY + (dieSize + 5);
+            const bottomOldPosY = positions[i].posY + (dieSize + 5);
+
+            if (rightNewPosX < oldPosX || newPosX > rightOldPosX || newPosY > bottomOldPosY || bottomNewPosY < oldPosY) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    createAndShowDice = (fiveDice, diceArea, diceClasses) => {
+        const dieSize = 52.8;
+        const maxX = diceArea.offsetWidth;
+        const maxY = diceArea.offsetHeight;
+
+        let posX = 0;
+        let posY = 0;
+        const positions = [];
+
+        fiveDice.forEach((die, i) => {
             const span = document.createElement("span");
-            span.classList.add('dice-area__die', 'fas', diceClasses[die]);
+            span.classList.add("dice-area__die", "fas", diceClasses[die])
+
+            do {
+                posX = Math.floor(Math.random() * (maxX - dieSize));
+                posY = Math.floor(Math.random() * (maxY - dieSize));
+            } while (this.checkOverlapping(posX, posY, positions, dieSize));
+
+            positions.push({ posX, posY });
+
+            span.style.left = positions[i].posX + "px";
+            span.style.top = positions[i].posY + "px";
             diceArea.appendChild(span);
         })
     }
 
     firstThrowDice = () => {
         const firstFiveDice = this.randomNumberGenerator.generateRandomNumbers();
-        this.createDice(firstFiveDice, this.diceArea, this.diceClasses);
+        this.createAndShowDice(firstFiveDice, this.diceArea, this.diceClasses);
         console.log(firstFiveDice);
     }
 }
