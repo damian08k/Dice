@@ -57,13 +57,20 @@ export default class Dice extends Board {
         return span;
     }
 
-
     showDice(fiveDice) {
         const positions = [];
         fiveDice.forEach((die, dieIndex) => {
             const span = this.createDice(die, positions, dieIndex);
             this.diceArea.appendChild(span);
         })
+    }
+
+    setListenersToDice() {
+        this.diceArea.addEventListener("click", e => {
+            if (e.target.classList.contains("dice-area__die")) {
+                e.target.classList.toggle("dice-area__die--chose");
+            }
+        });
     }
 
 }

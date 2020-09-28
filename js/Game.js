@@ -48,6 +48,7 @@ class Game {
     firstThrowDice = () => {
         const firstFiveDice = this.randomNumberGenerator.generateRandomNumbers();
         this.dice.showDice(firstFiveDice);
+        this.dice.setListenersToDice();
     }
 }
 

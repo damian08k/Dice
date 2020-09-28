@@ -36,5 +36,9 @@
         font-size: $main-fz * 3.3;
         color: yellow;
         cursor: pointer;
+
+        &--chose {
+            color: red;
+        }
     }
 }
