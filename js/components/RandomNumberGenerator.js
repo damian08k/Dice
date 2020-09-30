@@ -1,7 +1,6 @@
 export default class RandomNumberGenerator {
 
-    generateRandomNumbers() {
-        const maxNumberOfDice = 5;
+    generateRandomNumbers(maxNumberOfDice) {
         const generateNumbers = [];
 
         for (let i = 0; i < maxNumberOfDice; i++) {

@@ -26,11 +26,18 @@ class Game {
         this.dice = new Dice();
 
         this.playersNames = [];
+        this.fiveDice = [];
     }
 
     gameMainLogic() {
         this.startGameBtn.addEventListener("click", this.startGame);
-        this.diceThrowBtn.addEventListener("click", this.firstThrowDice);
+        this.diceThrowBtn.addEventListener("click", () => {
+            if (this.diceThrowBtn.dataset.name === "throw") {
+                this.firstThrowDice();
+            } else {
+                this.rethrowDice();
+            }
+        });
     }
 
     startGame = () => {
@@ -45,10 +52,26 @@ class Game {
         }
     }
 
+    changeThrowButtonValues(contentValue, dataNameValue) {
+        this.diceThrowBtn.textContent = contentValue;
+        this.diceThrowBtn.dataset.name = dataNameValue;
+    }
+
     firstThrowDice = () => {
-        const firstFiveDice = this.randomNumberGenerator.generateRandomNumbers();
-        this.dice.showDice(firstFiveDice);
+        this.fiveDice = this.randomNumberGenerator.generateRandomNumbers(5);
+        this.dice.showDice(this.fiveDice);
         this.dice.setListenersToDice();
+        this.changeThrowButtonValues("Przerzuć kości!", "rethrow");
+        console.log(this.fiveDice);
+    }
+
+    rethrowDice() {
+        const diceToRethrow = this.dice.getRethrowDiceIndex();
+        const newDice = this.randomNumberGenerator.generateRandomNumbers(diceToRethrow.length);
+        for (let i = 0; i < diceToRethrow.length; i++) {
+            this.dice.changeDiceAttributesAfterRethrow(this.fiveDice[diceToRethrow[i]], newDice);
+            this.fiveDice[diceToRethrow[i]] = newDice[i];
+        }
     }
 }
 

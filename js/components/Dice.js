@@ -54,6 +54,8 @@ export default class Dice extends Board {
         span.classList.add("dice-area__die", "fas", this.diceClasses[die]);
         span.style.left = positions[dieIndex].posX + "px";
         span.style.top = positions[dieIndex].posY + "px";
+        span.setAttribute("data-die", dieIndex);
+        span.setAttribute("data-choose", "noChoose");
         return span;
     }
 
@@ -65,12 +67,40 @@ export default class Dice extends Board {
         })
     }
 
+    changeDiceAttributes(die) {
+        die.classList.toggle("dice-area__die--chose");
+        die.setAttribute("data-choose", die.getAttribute("data-choose") === "chose" ? "noChoose" : "chose");
+    }
+
     setListenersToDice() {
         this.diceArea.addEventListener("click", e => {
-            if (e.target.classList.contains("dice-area__die")) {
-                e.target.classList.toggle("dice-area__die--chose");
+            const die = e.target;
+            if (die.classList.contains("dice-area__die")) {
+                this.changeDiceAttributes(die);
             }
         });
+    }
+
+    getDiceToRethrow() {
+        return [...document.querySelectorAll("[data-choose='chose']")];
+    }
+
+    getRethrowDiceIndex() {
+        const rethrowDice = this.getDiceToRethrow();
+        const choseDiceIndex = [];
+
+        rethrowDice.forEach(die => choseDiceIndex.push(parseInt(die.getAttribute("data-die"))));
+
+        return choseDiceIndex;
+    }
+
+    changeDiceAttributesAfterRethrow(dieToChange, newDice) {
+        const rethrowDice = this.getDiceToRethrow();
+        for (let i = 0; i < rethrowDice.length; i++) {
+            rethrowDice[i].classList.remove(this.diceClasses[dieToChange]);
+            rethrowDice[i].classList.add(this.diceClasses[newDice[i]]);
+            this.changeDiceAttributes(rethrowDice[i]);
+        }
     }
 
 }
