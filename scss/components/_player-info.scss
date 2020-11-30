@@ -72,6 +72,15 @@
         font-size: $main-fz + 5;
     }
 
+    &__no-throws-info {
+        margin: $main-margin * 2 0;
+        padding: $main-padding * 1.5 $main-padding * 2;
+        width: 100%;
+        font-size: $main-fz + 5 + 4;
+        font-weight: bold;
+        text-align: center;
+    }
+
     &__main-player-info,
     &__dice-throw,
     &__round {

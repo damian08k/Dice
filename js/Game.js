@@ -14,6 +14,7 @@ class Game {
         this.startGameBtn = document.querySelector(".start-game-window__start-game");
         this.startGameWindow = document.querySelector(".start-game-window-container");
         this.mainGameContainer = document.querySelector(".main-container");
+        this.playerInfoSection = document.querySelector(".player-info");
         this.firstPlayerName = document.querySelector(".stats__first-player");
         this.secondPlayerName = document.querySelector(".stats__second-player");
 
@@ -27,6 +28,7 @@ class Game {
 
         this.playersNames = [];
         this.fiveDice = [];
+        this.throwPossibilites = 2;
     }
 
     gameMainLogic() {
@@ -62,6 +64,7 @@ class Game {
         this.dice.showDice(this.fiveDice);
         this.dice.setListenersToDice();
         this.changeThrowButtonValues("Przerzuć kości!", "rethrow");
+        this.removeOnePossibilityToThrow();
         console.log(this.fiveDice);
     }
 
@@ -72,6 +75,26 @@ class Game {
             this.dice.changeDiceAttributesAfterRethrow(this.fiveDice[diceToRethrow[i]], newDice);
             this.fiveDice[diceToRethrow[i]] = newDice[i];
         }
+
+        if(this.throwPossibilites >= 0) {
+            this.removeOnePossibilityToThrow();
+        } 
+    }
+
+    removeOnePossibilityToThrow() {
+        this.throws[this.throwPossibilites].style.backgroundColor = "white";
+        this.throwPossibilites--;
+        if(this.throwPossibilites < 0) {
+            this.showIfNoMoreThrows();
+        }
+    }
+
+    showIfNoMoreThrows() { 
+        this.diceThrowBtn.style.display = "none";
+        const noMoreThrowsInfoElement = document.createElement("p");
+        noMoreThrowsInfoElement.className = "player-info__no-throws-info";
+        noMoreThrowsInfoElement.textContent = "Skończyły Ci się rzuty.";
+        this.playerInfoSection.appendChild(noMoreThrowsInfoElement);
     }
 }
 
