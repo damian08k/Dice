@@ -47,11 +47,11 @@ export default class Players {
         let names = [];
         const firstPlayerName = this.firstPlayerName.value;
         const secondPlayerName = (num === 2 ? this.secondPlayerElements[1].value : "Komputer");
-        if (firstPlayerName.length > 0 && firstPlayerName.length <= 8 && secondPlayerName.length > 0 && secondPlayerName.length <= 8) {
+        if (firstPlayerName.length > 0 && firstPlayerName.length <= 8 && secondPlayerName.length > 0 && secondPlayerName.length <= 8 && secondPlayerName !== "Komputer") {
             names.push(firstPlayerName, secondPlayerName);
         } else {
             // maybe special popup window instead of alert?
-            alert("Nazwa zawodnika powinna mieć od 1 do maksymalnie 8 znaków długości!");
+            alert("Nazwa zawodnika powinna mieć od 1 do maksymalnie 8 znaków długości, a dodatkowo drugi gracz nie może nazywać się 'Komputer'!");
             this.firstPlayerName.value = "";
             num === 2 ? this.secondPlayerElements[1].value = "" : null;
         }
