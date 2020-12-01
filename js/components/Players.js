@@ -46,17 +46,38 @@ export default class Players {
     getPlayersNames(num) {
         let names = [];
         const firstPlayerName = this.firstPlayerName.value;
-        const secondPlayerName = (num === 2 ? this.secondPlayerElements[1].value : "Komputer");
-        if (firstPlayerName.length > 0 && firstPlayerName.length <= 8 && secondPlayerName.length > 0 && secondPlayerName.length <= 8 && secondPlayerName !== "Komputer") {
-            names.push(firstPlayerName, secondPlayerName);
+        let secondPlayerName = "";
+
+        if(num === 2) {
+            if(this.secondPlayerElements[1].value === "Komputer") {
+                alert("Drugi gracz nie może nazywać się Komputer!");
+                this.clearPlayersNamesValues(num);
+                return names;
+            } else {
+                secondPlayerName = this.secondPlayerElements[1].value;
+            }
         } else {
-            // maybe special popup window instead of alert?
-            alert("Nazwa zawodnika powinna mieć od 1 do maksymalnie 8 znaków długości, a dodatkowo drugi gracz nie może nazywać się 'Komputer'!");
-            this.firstPlayerName.value = "";
-            num === 2 ? this.secondPlayerElements[1].value = "" : null;
+            secondPlayerName = "Komputer";
         }
 
+        names = this.checkPlayersNamesLength(firstPlayerName, secondPlayerName, names, num);
+
         return names;
+    }
+
+    checkPlayersNamesLength(firstPlayerName, secondPlayerName, names, num) {
+        if(firstPlayerName.length > 0 && firstPlayerName.length <= 8 && secondPlayerName.length > 0 && secondPlayerName.length <= 8) {
+            names.push(firstPlayerName, secondPlayerName);
+        } else {
+            alert("Nazwa zawodnika powinna mieć od 1 do maksymalnie 8 znaków długości!");
+            this.clearPlayersNamesValues(num);
+        }
+        return names;
+    }
+
+    clearPlayersNamesValues(num) {
+        this.firstPlayerName.value = "";
+        num === 2 ? this.secondPlayerElements[1].value = "" : null;
     }
 
 }
