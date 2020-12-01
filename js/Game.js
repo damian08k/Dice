@@ -1,6 +1,7 @@
 import RandomNumberGenerator from "./components/RandomNumberGenerator.js";
 import Players from "./components/Players.js";
 import Dice from "./components/Dice.js";
+import Statistics from "./components/Statistics.js";
 
 class Game {
     constructor() {
@@ -51,6 +52,8 @@ class Game {
             this.firstPlayerName.textContent = this.playersNames[0];
             this.secondPlayerName.textContent = this.playersNames[1];
             this.playerName.textContent = this.playersNames[0];
+            this.statistics = new Statistics(this.playersNames[1]);
+            this.statistics.addListenersToCells();
         }
     }
 
