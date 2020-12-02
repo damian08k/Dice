@@ -73,15 +73,19 @@ class Game {
 
     rethrowDice() {
         const diceToRethrow = this.dice.getRethrowDiceIndex();
-        const newDice = this.randomNumberGenerator.generateRandomNumbers(diceToRethrow.length);
-        for (let i = 0; i < diceToRethrow.length; i++) {
-            this.dice.changeDiceAttributesAfterRethrow(this.fiveDice[diceToRethrow[i]], newDice);
-            this.fiveDice[diceToRethrow[i]] = newDice[i];
+        if(diceToRethrow.length === 0) {
+            alert("Nie możesz wykonać kolejnego rzutu, jeśli nie wybrałeś żadnych kości!");
+        } else {
+            const newDice = this.randomNumberGenerator.generateRandomNumbers(diceToRethrow.length);
+            for (let i = 0; i < diceToRethrow.length; i++) {
+                this.dice.changeDiceAttributesAfterRethrow(this.fiveDice[diceToRethrow[i]], newDice);
+                this.fiveDice[diceToRethrow[i]] = newDice[i];
+            }
+    
+            if(this.throwPossibilites >= 0) {
+                this.removeOnePossibilityToThrow();
+            } 
         }
-
-        if(this.throwPossibilites >= 0) {
-            this.removeOnePossibilityToThrow();
-        } 
     }
 
     removeOnePossibilityToThrow() {
