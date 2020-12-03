@@ -40,7 +40,7 @@ export default class Players {
     }
 
     getNumberOfPlayers() {
-        return this.numberOfPlayers.textContent;
+        return parseInt(this.numberOfPlayers.textContent);
     }
 
     getPlayersNames(num) {

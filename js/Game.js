@@ -44,7 +44,7 @@ class Game {
     }
 
     startGame = () => {
-        const numberOfPlayers = parseInt(this.players.getNumberOfPlayers());
+        const numberOfPlayers = this.players.getNumberOfPlayers();
         this.playersNames = this.players.getPlayersNames(numberOfPlayers);
         if (this.playersNames.length !== 0) {
             this.startGameWindow.style.display = "none";
@@ -53,7 +53,7 @@ class Game {
             this.secondPlayerName.textContent = this.playersNames[1];
             this.playerName.textContent = this.playersNames[0];
             this.statistics = new Statistics(this.playersNames[1]);
-            this.statistics.addListenersToCells();
+            this.statistics.addListenersToCells(this.fiveDice);
         }
     }
 
@@ -78,7 +78,7 @@ class Game {
         } else {
             const newDice = this.randomNumberGenerator.generateRandomNumbers(diceToRethrow.length);
             for (let i = 0; i < diceToRethrow.length; i++) {
-                this.dice.changeDiceAttributesAfterRethrow(this.fiveDice[diceToRethrow[i]], newDice);
+                this.dice.changeDiceAttributesAfterRethrow(newDice);
                 this.fiveDice[diceToRethrow[i]] = newDice[i];
             }
     

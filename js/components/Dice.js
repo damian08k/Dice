@@ -94,13 +94,26 @@ export default class Dice extends Board {
         return choseDiceIndex;
     }
 
-    changeDiceAttributesAfterRethrow(dieToChange, newDice) {
+    changeDiceAttributesAfterRethrow(newDice) {
         const rethrowDice = this.getDiceToRethrow();
+
         for (let i = 0; i < rethrowDice.length; i++) {
-            rethrowDice[i].classList.remove(this.diceClasses[dieToChange]);
+            this.diceClasses.forEach(dieClassName => {
+                if(rethrowDice[i].classList.contains(dieClassName)) {
+                    rethrowDice[i].classList.remove(dieClassName);
+                }
+            })
             rethrowDice[i].classList.add(this.diceClasses[newDice[i]]);
             this.changeDiceAttributes(rethrowDice[i]);
         }
+    }
+
+    getCurrentDice() {
+        return [...this.diceArea.querySelectorAll(".dice-area__die")];
+    }
+
+    getDiceClasses() {
+        return this.diceClasses;
     }
 
 }

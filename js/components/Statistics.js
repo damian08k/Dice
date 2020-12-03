@@ -1,12 +1,18 @@
+import Computer from "./Computer.js";
+
 export default class Statistics {
     constructor(secondPlayerName) {
         this.initStatisticsVariables();
         this.secondPlayerName = secondPlayerName;
+
+        this.computer = new Computer(this.upperFirstPlayerCells);
     }
 
     initStatisticsVariables() {
         this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
         this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
+        this.upperFirstPlayerCells = [...document.querySelectorAll("[data-type='upperFirstPlayer']")];
+        this.upperSecondPlayerCells = [...document.querySelectorAll("[data-type='upperSecondPlayer']")];
     }
 
     addListenersToCells() {
@@ -23,7 +29,15 @@ export default class Statistics {
         this.secondColumnCells.forEach(singleCell => singleCell.style.cursor = "auto");
     }
 
+
     addPointsToCells(evt) {
-        console.log(evt.target)
+        this.computer.getClickedCell(evt.target);
+        const score = this.computer.countPlayersPoints();
+        this.setScoreToTable(evt.target, score);
     }
+
+    setScoreToTable(cell, score) {
+        cell.textContent = score;
+    }
+
 }
