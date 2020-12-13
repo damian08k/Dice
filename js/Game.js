@@ -97,6 +97,7 @@ class Game {
     }
 
     showIfNoMoreThrows() { 
+        // Commit test
         this.diceThrowBtn.style.display = "none";
         const noMoreThrowsInfoElement = document.createElement("p");
         noMoreThrowsInfoElement.className = "player-info__no-throws-info";
