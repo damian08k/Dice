@@ -73,12 +73,18 @@ export default class Dice extends Board {
     }
 
     setListenersToDice() {
-        this.diceArea.addEventListener("click", e => {
-            const die = e.target;
-            if (die.classList.contains("dice-area__die")) {
-                this.changeDiceAttributes(die);
-            }
-        });
+        this.diceArea.addEventListener("click", this.insideDiceListenerFunction);
+    }
+
+    insideDiceListenerFunction = evt => {
+        const die = evt.target;
+        if(die.classList.contains("dice-area__die")) {
+            this.changeDiceAttributes(die);
+        }
+    }
+
+    removeDiceListener() {
+        this.diceArea.removeEventListener("click", this.insideDiceListenerFunction, true);
     }
 
     getDiceToRethrow() {

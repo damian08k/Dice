@@ -10,4 +10,8 @@ export default class Board {
     getBoardHeight() {
         return this.diceArea.offsetHeight;
     }
+
+    resetBoard() {
+        this.diceArea.innerHTML = "";
+    }
 }

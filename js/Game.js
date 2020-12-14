@@ -2,6 +2,7 @@ import RandomNumberGenerator from "./components/RandomNumberGenerator.js";
 import Players from "./components/Players.js";
 import Dice from "./components/Dice.js";
 import Statistics from "./components/Statistics.js";
+import Board from "./components/Board.js";
 
 class Game {
     constructor() {
@@ -18,6 +19,8 @@ class Game {
         this.playerInfoSection = document.querySelector(".player-info");
         this.firstPlayerName = document.querySelector(".stats__first-player");
         this.secondPlayerName = document.querySelector(".stats__second-player");
+        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
+        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
 
         this.roundNumber = document.querySelector(".player-info__round-number");
         this.playerName = document.querySelector(".player-info__player-name");
@@ -26,10 +29,14 @@ class Game {
         this.randomNumberGenerator = new RandomNumberGenerator();
         this.players = new Players();
         this.dice = new Dice();
+        this.statistics = new Statistics();
+        this.board = new Board();
 
+        this.allCells = this.firstColumnCells.concat(this.secondColumnCells);
         this.playersNames = [];
         this.fiveDice = [];
         this.throwPossibilites = 2;
+        this.currentPlayer = 1;
     }
 
     gameMainLogic() {
@@ -52,8 +59,8 @@ class Game {
             this.firstPlayerName.textContent = this.playersNames[0];
             this.secondPlayerName.textContent = this.playersNames[1];
             this.playerName.textContent = this.playersNames[0];
-            this.statistics = new Statistics(this.playersNames[1]);
-            this.statistics.addListenersToCells(this.fiveDice);
+            this.removeClickPossibility(this.secondColumnCells);
+            this.addListenersToCells();
         }
     }
 
@@ -88,6 +95,49 @@ class Game {
         }
     }
 
+    addListenersToCells() {
+        if(this.playersNames[1] !== "Komputer") {
+            this.cellsListener(this.allCells);
+        } else {
+            this.cellsListener(this.firstColumnCells);
+        }
+    }
+
+    cellsListener(cellsPack) {
+        cellsPack.forEach(singleCell => singleCell.addEventListener("click", this.cellsListenerFunction))
+    }
+
+    cellsListenerFunction = evt => {
+        if(this.fiveDice.length === 0) {
+            alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
+        } else {
+            this.statistics.addPointsToCells(evt);
+            if(this.playersNames[1] !== "Komputer") this.setPlayerOptions();
+            this.resetGameOptionsAfterThrow();
+        }
+    }
+
+    setPlayerOptions() {
+        if(this.currentPlayer === 1) {
+            this.currentPlayer = 2;
+            this.removeClickPossibility(this.firstColumnCells);
+            this.addClickPossibility(this.secondColumnCells);
+        } else if(this.currentPlayer === 2) {
+            this.currentPlayer = 1;
+            this.removeClickPossibility(this.secondColumnCells);
+            this.addClickPossibility(this.firstColumnCells);
+        }
+        this.playerName.textContent = this.playersNames[this.currentPlayer - 1];
+    }
+
+    resetGameOptionsAfterThrow() {
+        this.board.resetBoard();
+        this.restoreThrowPossibilities();
+        this.changeThrowButtonValues("Rzuć kośćmi!", "throw");
+        this.dice.removeDiceListener();
+        this.fiveDice = [];
+    }
+    
     removeOnePossibilityToThrow() {
         this.throws[this.throwPossibilites].style.backgroundColor = "white";
         this.throwPossibilites--;
@@ -97,12 +147,30 @@ class Game {
     }
 
     showIfNoMoreThrows() { 
-        // Commit test
         this.diceThrowBtn.style.display = "none";
         const noMoreThrowsInfoElement = document.createElement("p");
         noMoreThrowsInfoElement.className = "player-info__no-throws-info";
         noMoreThrowsInfoElement.textContent = "Skończyły Ci się rzuty.";
         this.playerInfoSection.appendChild(noMoreThrowsInfoElement);
+    }
+
+    restoreThrowPossibilities() {
+        this.throwPossibilites = 2;
+        this.throws.forEach(throwPossibility => throwPossibility.style.backgroundColor = "#cf5fcf");
+        const throwButtonDisplayStyle = getComputedStyle(this.diceThrowBtn).display;
+        if(throwButtonDisplayStyle === "none") {
+            const noMoreThrowsInfo = document.querySelector(".player-info__no-throws-info");
+            this.playerInfoSection.removeChild(noMoreThrowsInfo);
+            this.diceThrowBtn.style.display = "block";
+        }
+    }
+
+    removeClickPossibility(cellsPack) {
+        cellsPack.forEach(singleCell => singleCell.style.pointerEvents = "none");
+    }
+
+    addClickPossibility(cellsPack) {
+        cellsPack.forEach(singleCell => singleCell.style.pointerEvents = "auto");
     }
 }
 

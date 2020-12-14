@@ -24,13 +24,11 @@ export default class Computer {
         return cellsNames;
     }
 
-    
     countPlayersPoints() {
         const currentDice = this.dice.getCurrentDice();
         let dieValue = 0;
 
         this.countPointsInUpperPartOfTable(currentDice, dieValue);
-        
         return this.score;
     }
 
