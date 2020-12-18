@@ -2,8 +2,9 @@ import Dice from "./Dice.js";
 import Players from "./Players.js";
 
 export default class Computer {
-    constructor(upperFirstCells) {
+    constructor(upperFirstCells, upperSecondCells) {
         this.upperFirstCells = upperFirstCells;
+        this.upperSecondCells = upperSecondCells;
         this.clickedCell = "";
         this.score = 0;
 
@@ -24,16 +25,22 @@ export default class Computer {
         return cellsNames;
     }
 
-    countPlayersPoints() {
+    countPlayersPoints(currentPlayer) {
         const currentDice = this.dice.getCurrentDice();
         let dieValue = 0;
 
-        this.countPointsInUpperPartOfTable(currentDice, dieValue);
+        this.countPointsInUpperPartOfTable(currentDice, dieValue, currentPlayer);
         return this.score;
     }
 
-    countPointsInUpperPartOfTable(currentDice, dieValue) {
-        const cellsNames = this.getCellsNames(this.upperFirstCells);
+    countPointsInUpperPartOfTable(currentDice, dieValue, currentPlayer) {
+        let cellsNames = [];
+
+        if(currentPlayer === 1) {
+            cellsNames = this.getCellsNames(this.upperFirstCells);
+        } else if(currentPlayer === 2) {
+            cellsNames = this.getCellsNames(this.upperSecondCells);
+        }
 
         cellsNames.forEach((cellName, index)=> {
             if(this.clickedCell.dataset.cell === cellName) {
@@ -52,5 +59,9 @@ export default class Computer {
                 this.score = dicePointRating * dieValue;
             }
         })
+    }
+
+    resetScore() {
+        this.score = 0;
     }
 }

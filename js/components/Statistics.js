@@ -4,7 +4,7 @@ export default class Statistics {
     constructor() {
         this.initStatisticsVariables();
 
-        this.computer = new Computer(this.upperFirstPlayerCells);
+        this.computer = new Computer(this.upperFirstPlayerCells, this.upperSecondPlayerCells);
     }
 
     initStatisticsVariables() {
@@ -16,9 +16,9 @@ export default class Statistics {
         this.secondColumnCells.forEach(singleCell => singleCell.style.cursor = "auto");
     }
 
-    addPointsToCells(evt) {
+    addPointsToCells(evt, currentPlayer) {
         this.computer.getClickedCell(evt.target);
-        const score = this.computer.countPlayersPoints();
+        const score = this.computer.countPlayersPoints(currentPlayer);
         this.setScoreToTable(evt.target, score);
     }
 
