@@ -4,7 +4,7 @@ export default class RandomNumberGenerator {
         const generateNumbers = [];
 
         for (let i = 0; i < maxNumberOfDice; i++) {
-            generateNumbers.push(Math.floor(Math.random() * 5 + 1));
+            generateNumbers.push(Math.floor(Math.random() * 6));
         }
 
         return generateNumbers;
