@@ -3,6 +3,7 @@ import Players from "./components/Players.js";
 import Dice from "./components/Dice.js";
 import Statistics from "./components/Statistics.js";
 import Board from "./components/Board.js";
+import Computer from "./components/Computer.js";
 
 class Game {
     constructor() {
@@ -31,6 +32,7 @@ class Game {
         this.dice = new Dice();
         this.statistics = new Statistics();
         this.board = new Board();
+        this.computer = new Computer();
 
         this.allCells = this.firstColumnCells.concat(this.secondColumnCells);
         this.playersNames = [];
@@ -111,20 +113,26 @@ class Game {
         if(this.fiveDice.length === 0) {
             alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
         } else {
-            this.statistics.addPointsToCells(evt);
-            if(this.playersNames[1] !== "Komputer") this.setPlayerOptions();
+            this.statistics.addPointsToCells(evt, this.currentPlayer);
+            if(this.playersNames[1] !== "Komputer") {
+                this.setPlayerOptions(evt.target);
+            } else {
+                evt.target.style.pointerEvents = "none";
+            }
             this.resetGameOptionsAfterThrow();
         }
     }
 
-    setPlayerOptions() {
+    setPlayerOptions(clickedCell) {
         if(this.currentPlayer === 1) {
             this.currentPlayer = 2;
             this.removeClickPossibility(this.firstColumnCells);
+            this.removeCellFromPackAfterClick(this.firstColumnCells, clickedCell);
             this.addClickPossibility(this.secondColumnCells);
         } else if(this.currentPlayer === 2) {
             this.currentPlayer = 1;
             this.removeClickPossibility(this.secondColumnCells);
+            this.removeCellFromPackAfterClick(this.secondColumnCells, clickedCell);
             this.addClickPossibility(this.firstColumnCells);
         }
         this.playerName.textContent = this.playersNames[this.currentPlayer - 1];
@@ -135,6 +143,7 @@ class Game {
         this.restoreThrowPossibilities();
         this.changeThrowButtonValues("Rzuć kośćmi!", "throw");
         this.dice.removeDiceListener();
+        this.computer.resetScore();
         this.fiveDice = [];
     }
     
@@ -163,6 +172,14 @@ class Game {
             this.playerInfoSection.removeChild(noMoreThrowsInfo);
             this.diceThrowBtn.style.display = "block";
         }
+    }
+
+    removeCellFromPackAfterClick(cellsPack, clickedCell) {
+        cellsPack.filter((cell, cellIndex) => {
+            if(clickedCell === cell) {
+                cellsPack.splice(cellIndex, 1);
+            }
+        })
     }
 
     removeClickPossibility(cellsPack) {
