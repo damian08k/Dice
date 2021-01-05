@@ -118,6 +118,18 @@ export default class Dice extends Board {
         return [...this.diceArea.querySelectorAll(".dice-area__die")];
     }
 
+    changeDiceFromClassesToNumbers(dice) {
+        dice.forEach((die, dieIndex) => {
+            this.diceClasses.forEach((diceClass, classIndex) => {
+                if(die.classList.contains(diceClass)) {
+                    dice[dieIndex] = classIndex + 1;
+                }
+            })
+        })
+
+        return dice;
+    }
+
     getDiceClasses() {
         return this.diceClasses;
     }

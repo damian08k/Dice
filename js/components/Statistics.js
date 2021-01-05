@@ -4,12 +4,19 @@ export default class Statistics {
     constructor() {
         this.initStatisticsVariables();
 
-        this.computer = new Computer(this.upperFirstPlayerCells, this.upperSecondPlayerCells);
+        this.computer = new Computer(
+            this.upperFirstPlayerCells,
+            this.upperSecondPlayerCells, 
+            this.lowerFirstPlayerCells, 
+            this.lowerSecondPlayersCells
+        );
     }
 
     initStatisticsVariables() {
         this.upperFirstPlayerCells = [...document.querySelectorAll("[data-type='upperFirstPlayer']")];
         this.upperSecondPlayerCells = [...document.querySelectorAll("[data-type='upperSecondPlayer']")];
+        this.lowerFirstPlayerCells = [...document.querySelectorAll("[data-type='lowerFirstPlayer']")];
+        this.lowerSecondPlayersCells = [...document.querySelectorAll("[data-type='lowerSecondPlayer']")];
     }
 
     removePointerIfOnePlayer() {
