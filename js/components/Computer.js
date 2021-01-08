@@ -21,7 +21,6 @@ export default class Computer {
         this.dice = new Dice();
         this.players = new Players();
 
-        this.diceClasses = this.dice.getDiceClasses();
         this.numberOfPlayers = this.players.getNumberOfPlayers();
     }
 
@@ -36,19 +35,19 @@ export default class Computer {
     }
 
     countPlayersPoints(currentPlayer) {
-        const currentDice = this.dice.getCurrentDice();
-        let dieValue = 0;
+        let currentDice = this.dice.getCurrentDice();
 
-        this.countPointsInUpperPartOfTable(currentDice, dieValue, currentPlayer);
-        this.countPointsInLowerPartOfTable(currentDice, dieValue, currentPlayer);
+        currentDice = this.dice.changeDiceFromClassesToNumbers(currentDice);
+
+        this.countPointsInUpperPartOfTable(currentDice, currentPlayer);
+        this.countPointsInLowerPartOfTable(currentDice, currentPlayer);
         return this.score;
     }
 
-    countPointsInUpperPartOfTable(currentDice, dieValue, currentPlayer) {
-        // TO FIX
-        // NEW WAY TO SHOW PLAYER CURRENT DICE
+    countPointsInUpperPartOfTable(currentDice, currentPlayer) {
         let cellsNames = [];
         const isUpper = true;
+        const count = this.countNumberOfDiceInCurrentDice(currentDice);
 
         if(currentPlayer === 1) {
             cellsNames = this.getCellsNames(this.upperFirstCells);
@@ -56,28 +55,23 @@ export default class Computer {
             cellsNames = this.getCellsNames(this.upperSecondCells);
         }
 
-        cellsNames.forEach((cellName, index)=> {
+        cellsNames.forEach((cellName, index) => {
             if(this.clickedCell.dataset.cell === cellName) {
-                const numberOfDiceInCurrentCell = currentDice.filter(die => die.classList.contains(this.diceClasses[index]));
-        
-                this.diceClasses.forEach((dieClass, classIndex) => {
-                    if(numberOfDiceInCurrentCell.length === 0) {
-                        dieValue = 0;
-                    } else if(numberOfDiceInCurrentCell.length > 0 && numberOfDiceInCurrentCell[0].classList.contains(dieClass)) {
-                        dieValue = classIndex + 1;
-                    }
-                })
+                if(count.hasOwnProperty(index + 1)) {
+                    const statsOption = index + 1;
+                    const optionValueInDice = Object.getOwnPropertyDescriptor(count, statsOption).value;
 
-                const dicePointRating = numberOfDiceInCurrentCell.length;
-               
-                this.score = dicePointRating * dieValue;
+                    this.score = statsOption * optionValueInDice;
+                } else {
+                    this.score = 0;
+                }
 
                 this.countSumInTable(currentPlayer, isUpper);
             }
         })
     }
 
-    countPointsInLowerPartOfTable(currentDice, dieValue, currentPlayer) {
+    countPointsInLowerPartOfTable(currentDice, currentPlayer) {
         let cellsNames = [];
         const threeTheSameDice = 3;
         const fourTheSameDice = 4;
@@ -85,7 +79,6 @@ export default class Computer {
         const largeStraightPossibilities = ["12345", "23456"];
         const isUpper = false;
 
-        currentDice = this.dice.changeDiceFromClassesToNumbers(currentDice);
         const count = this.countNumberOfDiceInCurrentDice(currentDice);
 
         if(currentPlayer === 1) {
@@ -94,6 +87,7 @@ export default class Computer {
             cellsNames = this.getCellsNames(this.lowerSecondCells);
         }
 
+        console.log(currentDice)
         cellsNames.forEach((cellName, cellIndex) => {
             if(this.clickedCell.dataset.cell === cellName) {
                 switch(cellIndex) {
