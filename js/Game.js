@@ -114,6 +114,7 @@ class Game {
             alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
         } else {
             this.statistics.addPointsToCells(evt, this.currentPlayer);
+            this.statistics.addPointsToSpecialCells(this.currentPlayer);
             if(this.playersNames[1] !== "Komputer") {
                 this.setPlayerOptions(evt.target);
             } else {

@@ -9,6 +9,14 @@ export default class Computer {
         this.lowerSecondCells = lowerSecondCells;
         this.clickedCell = "";
         this.score = 0;
+        this.upperFirstPlayerScore = 0;
+        this.upperSecondPlayerScore = 0;
+        this.lowerFirstPlayerScore = 0;
+        this.lowerSecondPlayerScore = 0;
+        this.firstPlayerTotalScore = 0;
+        this.secondPlayerTotalScore = 0;
+        this.firstPlayerBonus = 0;
+        this.secondPlayerBonus = 0;
 
         this.dice = new Dice();
         this.players = new Players();
@@ -40,6 +48,7 @@ export default class Computer {
         // TO FIX
         // NEW WAY TO SHOW PLAYER CURRENT DICE
         let cellsNames = [];
+        const isUpper = true;
 
         if(currentPlayer === 1) {
             cellsNames = this.getCellsNames(this.upperFirstCells);
@@ -62,6 +71,8 @@ export default class Computer {
                 const dicePointRating = numberOfDiceInCurrentCell.length;
                
                 this.score = dicePointRating * dieValue;
+
+                this.countSumInTable(currentPlayer, isUpper);
             }
         })
     }
@@ -72,6 +83,7 @@ export default class Computer {
         const fourTheSameDice = 4;
         const smallStraightPossibilities = ["1234", "2345", "3456"];
         const largeStraightPossibilities = ["12345", "23456"];
+        const isUpper = false;
 
         currentDice = this.dice.changeDiceFromClassesToNumbers(currentDice);
         const count = this.countNumberOfDiceInCurrentDice(currentDice);
@@ -110,6 +122,7 @@ export default class Computer {
                         console.log("default");
                         break;
                 }
+                this.countSumInTable(currentPlayer, isUpper);
             }
         })
     }
@@ -207,6 +220,73 @@ export default class Computer {
         }
     
         this.score = score;
+    }
+
+    countSumInTable(currentPlayer, isUpper) {
+        if(currentPlayer === 1) {
+            if(isUpper) {
+                this.upperFirstPlayerScore += this.score;
+            } else {
+                this.lowerFirstPlayerScore += this.score;
+            }
+            this.firstPlayerTotalScore = (this.upperFirstPlayerScore + this.lowerFirstPlayerScore);
+        } else {
+            if(isUpper) {
+                this.upperSecondPlayerScore += this.score;
+            } else {
+                this.lowerSecondPlayerScore += this.score;
+            }
+            this.secondPlayerTotalScore = (this.upperSecondPlayerScore + this.lowerSecondPlayerScore);
+        }
+
+        this.addBonusPointsForPlayers();
+    }
+
+    addBonusPointsForPlayers() {
+        const bonusPoints = 30;
+        const requireScore = 13;
+
+        if(this.upperFirstPlayerScore >= requireScore) {
+            this.firstPlayerBonus = bonusPoints;
+            this.firstPlayerTotalScore += this.firstPlayerBonus;
+        } 
+
+        if(this.upperSecondPlayerScore >= requireScore) {
+            this.secondPlayerBonus = bonusPoints;
+            this.secondPlayerTotalScore += this.secondPlayerBonus;
+        }
+    }
+
+    getFirstPlayerUpperSum() {
+        return this.upperFirstPlayerScore;
+    }
+
+    getSecondPlayerUpperSum() {
+        return this.upperSecondPlayerScore;
+    }
+
+    getFirstPlayerBonus() {
+        return this.firstPlayerBonus;
+    }
+
+    getSecondPlayerBonus() {
+        return this.secondPlayerBonus;
+    }
+
+    getFirstPlayerLowerSum() {
+        return this.lowerFirstPlayerScore;
+    }
+
+    getSecondPlayerLowerSum() {
+        return this.lowerSecondPlayerScore;
+    }
+
+    getFirstPlayerTotalScore() {
+        return this.firstPlayerTotalScore;
+    }
+
+    getSecondPlayerTotalScore() {
+        return this.secondPlayerTotalScore;
     }
 
     resetScore() {
