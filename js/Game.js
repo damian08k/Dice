@@ -39,6 +39,8 @@ class Game {
         this.fiveDice = [];
         this.throwPossibilites = 2;
         this.currentPlayer = 1;
+        this.numberOfPlayers = 0;
+        this.round = 1;
     }
 
     gameMainLogic() {
@@ -53,14 +55,15 @@ class Game {
     }
 
     startGame = () => {
-        const numberOfPlayers = this.players.getNumberOfPlayers();
-        this.playersNames = this.players.getPlayersNames(numberOfPlayers);
+        this.numberOfPlayers = this.players.getNumberOfPlayers();
+        this.playersNames = this.players.getPlayersNames(this.numberOfPlayers);
         if (this.playersNames.length !== 0) {
             this.startGameWindow.style.display = "none";
             // this.mainGameContainer.style.display = "block";
             this.firstPlayerName.textContent = this.playersNames[0];
             this.secondPlayerName.textContent = this.playersNames[1];
             this.playerName.textContent = this.playersNames[0];
+            this.roundNumber.textContent = this.round;
             this.removeClickPossibility(this.secondColumnCells);
             this.addListenersToCells();
         }
@@ -120,7 +123,8 @@ class Game {
             } else {
                 evt.target.style.pointerEvents = "none";
             }
-            this.resetGameOptionsAfterThrow();
+            this.showNewRoundNumber();
+            this.resetGameOptions();
         }
     }
 
@@ -139,7 +143,7 @@ class Game {
         this.playerName.textContent = this.playersNames[this.currentPlayer - 1];
     }
 
-    resetGameOptionsAfterThrow() {
+    resetGameOptions() {
         this.board.resetBoard();
         this.restoreThrowPossibilities();
         this.changeThrowButtonValues("Rzuć kośćmi!", "throw");
@@ -173,6 +177,21 @@ class Game {
             this.playerInfoSection.removeChild(noMoreThrowsInfo);
             this.diceThrowBtn.style.display = "block";
         }
+    }
+
+    updateRoundNumber() {
+        this.round++;
+        this.roundNumber.textContent = this.round;
+    }
+
+    showNewRoundNumber() {
+            if(this.numberOfPlayers === 1) {
+                this.updateRoundNumber();
+            } else {
+                if(this.currentPlayer === 1) {
+                    this.updateRoundNumber();
+                }
+            }
     }
 
     removeCellFromPackAfterClick(cellsPack, clickedCell) {
