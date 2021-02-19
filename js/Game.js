@@ -80,7 +80,6 @@ class Game {
         this.dice.setListenersToDice();
         this.changeThrowButtonValues("Przerzuć kości!", "rethrow");
         this.removeOnePossibilityToThrow();
-        console.log(this.fiveDice);
     }
 
     rethrowDice() {
@@ -122,6 +121,19 @@ class Game {
                 this.setPlayerOptions(evt.target);
             } else {
                 evt.target.style.pointerEvents = "none";
+                this.computer.computerMove(this.secondColumnCells);
+                const computerCell = this.computer.getComputerCell();
+                const computerScore = this.computer.getComputerScore();
+                this.statistics.setScoreToTable(computerCell, computerScore);
+                const specialCells = this.statistics.getSecondPlayerCells();
+                const playerScores = [
+                    this.computer.getSecondPlayerUpperSum(),
+                    this.computer.getSecondPlayerBonus(),
+                    this.computer.getSecondPlayerLowerSum(),
+                    this.computer.getSecondPlayerTotalScore()
+                ]
+
+                this.statistics.addPointsToSpecialCellsMechanism(specialCells, playerScores);
             }
             this.showNewRoundNumber();
             this.resetGameOptions();

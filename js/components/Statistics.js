@@ -39,20 +39,58 @@ export default class Statistics {
 
     addPointsToSpecialCells(currentPlayer) {
         if(currentPlayer === 1) {
-            this.upperFirstPlayerSum.textContent = this.computer.getFirstPlayerUpperSum();
-            this.firstPlayerBonus.textContent = this.computer.getFirstPlayerBonus();
-            this.lowerFirstPlayerSum.textContent = this.computer.getFirstPlayerLowerSum();
-            this.firstPlayerTotalScore.textContent = this.computer.getFirstPlayerTotalScore();
+            const specialCells = [
+                this.upperFirstPlayerSum,
+                this.firstPlayerBonus,
+                this.lowerFirstPlayerSum,
+                this.firstPlayerTotalScore
+            ];
+
+            const playerScores = [
+                this.computer.getFirstPlayerUpperSum(),
+                this.computer.getFirstPlayerBonus(),
+                this.computer.getFirstPlayerLowerSum(),
+                this.computer.getFirstPlayerTotalScore()
+            ];
+
+            this.addPointsToSpecialCellsMechanism(specialCells, playerScores);
         } else {
-            this.upperSecondPlayerSum.textContent = this.computer.getSecondPlayerUpperSum();
-            this.secondPlayerBonus.textContent = this.computer.getSecondPlayerBonus();
-            this.lowerSecondPlayerSum.textContent = this.computer.getSecondPlayerLowerSum();
-            this.secondPlayerTotalScore.textContent = this.computer.getSecondPlayerTotalScore();
+            const specialCells = [
+               ...this.getSecondPlayerCells()
+            ];
+
+            const playerScores = [
+                this.computer.getSecondPlayerUpperSum(),
+                this.computer.getSecondPlayerBonus(),
+                this.computer.getSecondPlayerLowerSum(),
+                this.computer.getSecondPlayerTotalScore()
+            ]
+
+            this.addPointsToSpecialCellsMechanism(specialCells, playerScores);
         }
+    }
+
+    addPointsToSpecialCellsMechanism(specialCells, playerScores) {
+        const [upperSum, bonus, lowerSum, total] = specialCells;
+        const [upperScore, bonusScore, lowerScore, totalScore] = playerScores;
+
+        upperSum.textContent = upperScore;
+        bonus.textContent = bonusScore;
+        lowerSum.textContent = lowerScore;
+        total.textContent = totalScore;
     }
 
     setScoreToTable(cell, score) {
         cell.textContent = score;
+    }
+
+    getSecondPlayerCells() {
+        return [
+            this.upperSecondPlayerSum,
+            this.secondPlayerBonus,
+            this.lowerSecondPlayerSum,
+            this.secondPlayerTotalScore
+        ];
     }
 
 }

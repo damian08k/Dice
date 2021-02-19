@@ -130,6 +130,16 @@ export default class Dice extends Board {
         return dice;
     }
 
+    addClassesToDice(dice) {
+        const newDice = [];
+        for(let die = 0; die < dice.length; die++) {
+            const span = document.createElement("span");
+            span.classList.add("dice-area__die", "fas", this.diceClasses[dice[die]]);
+            newDice.push(span);
+        }
+        return newDice;
+    }
+
     getDiceClasses() {
         return this.diceClasses;
     }
