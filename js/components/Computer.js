@@ -302,17 +302,17 @@ export default class Computer {
             } else {
                 this.lowerFirstPlayerScore += this.score;
             }
-            this.firstPlayerTotalScore = (this.upperFirstPlayerScore + this.lowerFirstPlayerScore);
+            this.addBonusPointsForPlayers();
+            this.firstPlayerTotalScore = (this.upperFirstPlayerScore + this.lowerFirstPlayerScore + this.firstPlayerBonus);
         } else {
             if(isUpper) {
                 this.upperSecondPlayerScore += this.score;
             } else {
                 this.lowerSecondPlayerScore += this.score;
             }
-            this.secondPlayerTotalScore = (this.upperSecondPlayerScore + this.lowerSecondPlayerScore);
+            this.addBonusPointsForPlayers();
+            this.secondPlayerTotalScore = (this.upperSecondPlayerScore + this.lowerSecondPlayerScore + this.secondPlayerBonus);
         }
-
-        this.addBonusPointsForPlayers();
     }
 
     addBonusPointsForPlayers() {
@@ -321,12 +321,10 @@ export default class Computer {
 
         if(this.upperFirstPlayerScore >= requireScore) {
             this.firstPlayerBonus = bonusPoints;
-            this.firstPlayerTotalScore += this.firstPlayerBonus;
         } 
 
         if(this.upperSecondPlayerScore >= requireScore) {
             this.secondPlayerBonus = bonusPoints;
-            this.secondPlayerTotalScore += this.secondPlayerBonus;
         }
     }
 
