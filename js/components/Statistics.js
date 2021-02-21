@@ -66,6 +66,8 @@ export default class Statistics {
                 this.computer.getSecondPlayerTotalScore()
             ]
 
+            console.log(this.computer.getFirstPlayerTotalScore());
+
             this.addPointsToSpecialCellsMechanism(specialCells, playerScores);
         }
     }
@@ -91,6 +93,29 @@ export default class Statistics {
             this.lowerSecondPlayerSum,
             this.secondPlayerTotalScore
         ];
+    }
+
+    getFirstPlayerScore() {
+        return this.computer.getFirstPlayerTotalScore();
+    }
+
+    getSecondPlayerScore() {
+        return this.computer.getSecondPlayerTotalScore();
+    }
+
+    resetPlayersStats() {
+        this.computer.resetPlayerScores();
+    }
+
+    resetSpecialCellsValues() {
+        this.upperFirstPlayerSum.textContent = 0;
+        this.upperSecondPlayerSum.textContent = 0;
+        this.lowerFirstPlayerSum.textContent = 0;
+        this.lowerSecondPlayerSum.textContent = 0;
+        this.firstPlayerBonus.textContent = 0;
+        this.secondPlayerBonus.textContent = 0;
+        this.firstPlayerTotalScore.textContent = 0;
+        this.secondPlayerTotalScore.textContent = 0;
     }
 
 }

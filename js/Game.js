@@ -59,7 +59,7 @@ class Game {
         this.playersNames = this.players.getPlayersNames(this.numberOfPlayers);
         if (this.playersNames.length !== 0) {
             this.startGameWindow.style.display = "none";
-            // this.mainGameContainer.style.display = "block";
+            this.mainGameContainer.style.display = "block";
             this.firstPlayerName.textContent = this.playersNames[0];
             this.secondPlayerName.textContent = this.playersNames[1];
             this.playerName.textContent = this.playersNames[0];
@@ -112,6 +112,7 @@ class Game {
     }
 
     cellsListenerFunction = evt => {
+        console.log(this.numberOfPlayers)
         if(this.fiveDice.length === 0) {
             alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
         } else {
@@ -137,6 +138,7 @@ class Game {
             }
             this.showNewRoundNumber();
             this.resetGameOptions();
+            this.endGame();
         }
     }
 
@@ -192,14 +194,18 @@ class Game {
     }
 
     updateRoundNumber() {
+        const maxRound = 13;
         this.round++;
-        this.roundNumber.textContent = this.round;
+
+        if(this.round <= maxRound) {
+            this.roundNumber.textContent = this.round;
+        }
     }
 
     showNewRoundNumber() {
             if(this.numberOfPlayers === 1) {
                 this.updateRoundNumber();
-            } else {
+            } else if(this.numberOfPlayers > 1) {
                 if(this.currentPlayer === 1) {
                     this.updateRoundNumber();
                 }
@@ -220,6 +226,71 @@ class Game {
 
     addClickPossibility(cellsPack) {
         cellsPack.forEach(singleCell => singleCell.style.pointerEvents = "auto");
+    }
+
+    checkGameResult() {
+        const firstPlayerTotalScore = this.statistics.getFirstPlayerScore();
+        const secondPlayerTotalScore = this.secondPlayerName.textContent !== "Komputer" ?
+                                       this.statistics.getSecondPlayerScore() :
+                                       this.computer.getSecondPlayerTotalScore();
+
+        console.log(firstPlayerTotalScore, secondPlayerTotalScore)
+
+        if(firstPlayerTotalScore === secondPlayerTotalScore) {
+            return "Wynik gry to remis";
+        } else if(firstPlayerTotalScore > secondPlayerTotalScore) {
+            return `Wygrał gracz ${this.firstPlayerName.textContent} uzyskując ${firstPlayerTotalScore} punktów.`;
+        } else if(secondPlayerTotalScore > firstPlayerTotalScore) {
+            return `Wygrał gracz ${this.secondPlayerName.textContent} uzyskując ${secondPlayerTotalScore} punktów.`;
+        }
+    }
+
+    endGame() {
+        const gameResult = this.checkGameResult();
+
+        if(this.round > 13) {
+            window.setTimeout(() => {
+                alert(`Gra skończona. ${gameResult}`);
+                this.endGameReset();
+            }, 300)
+        }
+    }
+
+    endGameReset() {
+        if(this.numberOfPlayers === 1) {
+            this.computer.resetPlayerScores();
+        } else if(this.numberOfPlayers === 2) {
+            this.initCellsAfterTwoPlayerPlay();
+        }
+        this.statistics.resetPlayersStats();
+        this.computer.resetComputerPossibilities();
+        this.statistics.resetSpecialCellsValues();
+        this.players.resetAddingPlayersArea();
+
+        this.resetGameOptions();
+        this.resetGameContainers();
+        this.resetPlayersAndRound();
+        
+        this.addClickPossibility(this.allCells);
+        
+        this.allCells.forEach(cell => cell.textContent = "");
+    }
+
+    resetGameContainers() {
+        this.startGameWindow.style.display = "flex";
+        this.mainGameContainer.style.display = "none";
+    }
+
+    resetPlayersAndRound() {
+        this.round = 1;
+        this.numberOfPlayers = 0;
+        this.currentPlayer = 1;
+        this.playersNames = [];
+    }
+
+    initCellsAfterTwoPlayerPlay() {
+        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
+        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
     }
 }
 

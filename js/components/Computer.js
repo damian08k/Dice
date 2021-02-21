@@ -479,4 +479,74 @@ export default class Computer {
     resetScore() {
         this.score = 0;
     }
+
+    resetPlayerScores() {
+        this.upperFirstPlayerScore = 0;
+        this.upperSecondPlayerScore = 0;
+        this.lowerFirstPlayerScore = 0;
+        this.lowerSecondPlayerScore = 0;
+        this.firstPlayerTotalScore = 0;
+        this.secondPlayerTotalScore = 0;
+        this.firstPlayerBonus = 0;
+        this.secondPlayerBonus = 0;
+    }
+
+    resetComputerPossibilities() {
+        this.upperStatsPossibilities = [
+            {
+                name: "Jedynki",
+                indexNo: 0,
+            },
+            {
+                name: "Dwójki",
+                indexNo: 1,
+            },
+            {
+                name: "Trójki",
+                indexNo: 2,
+            },
+            {
+                name: "Czwórki",
+                indexNo: 3,
+            },
+            {
+                name: "Piątki",
+                indexNo: 4,
+            },
+            {
+                name: "Szóstki",
+                indexNo: 5,
+            }
+        ];
+
+        this.lowerStatsPossibilites = [
+            {
+                name: "Trzy jednakowe",
+                indexNo: 0,
+            },
+            {
+                name: "Cztery jednakowe",
+                indexNo: 1,
+            },
+            {
+                name: "Full",
+                indexNo: 2,
+            },
+            {
+                name: "Mały strit",
+                indexNo: 3,
+            },
+            {
+                name: "Duży strit",
+                indexNo: 4,
+            }, {
+                name: "Generał",
+                indexNo: 5,
+            },
+            {
+                name: "Szansa",
+                indexNo: 6,
+            }
+        ]
+    }
 }

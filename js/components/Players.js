@@ -80,4 +80,10 @@ export default class Players {
         num === 2 ? this.secondPlayerElements[1].value = "" : null;
     }
 
+    resetAddingPlayersArea() {
+        this.secondPlayerElements.forEach(element => element.style.display = "none");
+        this.numberOfPlayers.textContent = 1;
+        this.clearPlayersNamesValues(2);
+    }
+
 }
