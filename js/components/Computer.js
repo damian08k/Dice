@@ -81,7 +81,7 @@ export default class Computer {
                 name: "Szansa",
                 indexNo: 6,
             }
-        ]
+        ];
     }
 
     getClickedCell(clickedCell) {
@@ -173,7 +173,7 @@ export default class Computer {
                 score = this.checkIsStraight(smallStraightPossibilities, count);
                 break;
             case 4:
-                score = this.checkIsStraight(largeStraightPossibilities, count)
+                score = this.checkIsStraight(largeStraightPossibilities, count);
                 break;
             case 5:
                 score = this.checkIsGeneral(count);
@@ -370,8 +370,8 @@ export default class Computer {
         let score = 0;
         
         for(let lowerIndex = 0; lowerIndex < statsPossibilites.length; lowerIndex++) {
-            score = this.lowerStatsCountSwitch(statsPossibilites[lowerIndex].indexNo, count, isComputer)
-            this.createProperty(scoresObject, statsPossibilites[lowerIndex].name, score)
+            score = this.lowerStatsCountSwitch(statsPossibilites[lowerIndex].indexNo, count, isComputer);
+            this.createProperty(scoresObject, statsPossibilites[lowerIndex].name, score);
         }
 
     }
@@ -547,6 +547,6 @@ export default class Computer {
                 name: "Szansa",
                 indexNo: 6,
             }
-        ]
+        ];
     }
 }

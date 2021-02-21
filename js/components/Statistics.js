@@ -64,9 +64,7 @@ export default class Statistics {
                 this.computer.getSecondPlayerBonus(),
                 this.computer.getSecondPlayerLowerSum(),
                 this.computer.getSecondPlayerTotalScore()
-            ]
-
-            console.log(this.computer.getFirstPlayerTotalScore());
+            ];
 
             this.addPointsToSpecialCellsMechanism(specialCells, playerScores);
         }

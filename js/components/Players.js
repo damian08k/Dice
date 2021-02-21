@@ -14,9 +14,9 @@ export default class Players {
 
     addSecondPlayer(numberOfPlayers) {
         if (numberOfPlayers === 2) {
-            this.secondPlayerElements.forEach(element => element.style.display = "block")
+            this.secondPlayerElements.forEach(element => element.style.display = "block");
         } else {
-            this.secondPlayerElements.forEach(element => element.style.display = "none")
+            this.secondPlayerElements.forEach(element => element.style.display = "none");
         }
     }
 
@@ -35,7 +35,7 @@ export default class Players {
         let numberOfPlayers = 1;
         const addRemovePlayers = [this.plus, this.minus];
         addRemovePlayers.forEach(sign => {
-            sign.addEventListener("click", () => this.changeNumberOfPlayers(sign, numberOfPlayers, addRemovePlayers))
+            sign.addEventListener("click", () => this.changeNumberOfPlayers(sign, numberOfPlayers, addRemovePlayers));
         })
     }
 

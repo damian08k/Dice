@@ -108,11 +108,10 @@ class Game {
     }
 
     cellsListener(cellsPack) {
-        cellsPack.forEach(singleCell => singleCell.addEventListener("click", this.cellsListenerFunction))
+        cellsPack.forEach(singleCell => singleCell.addEventListener("click", this.cellsListenerFunction));
     }
 
     cellsListenerFunction = evt => {
-        console.log(this.numberOfPlayers)
         if(this.fiveDice.length === 0) {
             alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
         } else {
@@ -132,7 +131,7 @@ class Game {
                     this.computer.getSecondPlayerBonus(),
                     this.computer.getSecondPlayerLowerSum(),
                     this.computer.getSecondPlayerTotalScore()
-                ]
+                ];
 
                 this.statistics.addPointsToSpecialCellsMechanism(specialCells, playerScores);
             }
@@ -234,8 +233,6 @@ class Game {
                                        this.statistics.getSecondPlayerScore() :
                                        this.computer.getSecondPlayerTotalScore();
 
-        console.log(firstPlayerTotalScore, secondPlayerTotalScore)
-
         if(firstPlayerTotalScore === secondPlayerTotalScore) {
             return "Wynik gry to remis";
         } else if(firstPlayerTotalScore > secondPlayerTotalScore) {
@@ -252,7 +249,7 @@ class Game {
             window.setTimeout(() => {
                 alert(`Gra skończona. ${gameResult}`);
                 this.endGameReset();
-            }, 300)
+            }, 300);
         }
     }
 
@@ -272,7 +269,7 @@ class Game {
         this.resetPlayersAndRound();
         
         this.addClickPossibility(this.allCells);
-        
+
         this.allCells.forEach(cell => cell.textContent = "");
     }
 
