@@ -1,14 +1,11 @@
-// media queries
 @mixin mq($breakpoint) {
     $size: map-get($breakpoints, $breakpoint);
 
-    @if($size) {
+    @if ($size) {
         @media #{$size} {
             @content;
         }
-    }
-
-    @else {
+    } @else {
         @error '"#{breakpoint}" - not found';
     }
 }

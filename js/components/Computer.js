@@ -8,23 +8,30 @@ export default class Computer {
         this.upperSecondCells = upperSecondCells;
         this.lowerFirstCells = lowerFirstCells;
         this.lowerSecondCells = lowerSecondCells;
-        this.clickedCell = "";
-        this.score = 0;
-        this.upperFirstPlayerScore = 0;
-        this.upperSecondPlayerScore = 0;
-        this.lowerFirstPlayerScore = 0;
-        this.lowerSecondPlayerScore = 0;
-        this.firstPlayerTotalScore = 0;
-        this.secondPlayerTotalScore = 0;
-        this.firstPlayerBonus = 0;
-        this.secondPlayerBonus = 0;
-        this.computerScoreCell = "";
 
+        this.initComputerVariables();
+    }
+
+    initComputerVariables() {
         this.dice = new Dice();
-        this.players = new Players();
         this.diceGenerator = new RandomNumberGenerator();
-
+        this.players = new Players();
         this.numberOfPlayers = this.players.getNumberOfPlayers();
+
+        this.upperFirstPlayerScore = 0;
+        this.lowerFirstPlayerScore = 0;
+        this.firstPlayerTotalScore = 0;
+        this.firstPlayerBonus = 0;
+
+        this.upperSecondPlayerScore = 0;
+        this.lowerSecondPlayerScore = 0;
+        this.secondPlayerTotalScore = 0;
+        this.secondPlayerBonus = 0;
+
+        this.score = 0;
+
+        this.clickedCell = "";
+        this.computerScoreCell = "";
 
         this.upperStatsPossibilities = [
             {
@@ -84,16 +91,6 @@ export default class Computer {
         ];
     }
 
-    getClickedCell(clickedCell) {
-        this.clickedCell = clickedCell;
-    }
-
-    getCellsNames(cellsStack) {
-        const cellsNames = [];
-        cellsStack.forEach(cell => cellsNames.push(cell.getAttribute("data-cell")));
-        return cellsNames;
-    }
-
     countPlayersPoints(currentPlayer) {
         let currentDice = this.dice.getCurrentDice();
 
@@ -101,6 +98,7 @@ export default class Computer {
 
         this.countPointsInUpperPartOfTable(currentDice, currentPlayer);
         this.countPointsInLowerPartOfTable(currentDice, currentPlayer);
+
         return this.score;
     }
 
@@ -152,6 +150,18 @@ export default class Computer {
         })
     }
 
+    countNumberOfDiceInCurrentDice(currentDice) {
+        const count = {}
+
+        for(let i = 0; i < currentDice.length; i++) {
+            const x = currentDice[i];
+
+            count[x] = count[x] ? count[x] + 1 : 1;
+        }
+
+        return count;
+    }
+
     lowerStatsCountSwitch(expression, count, isComputer) {
         let score = 0;
         const threeTheSameDice = 3;
@@ -191,18 +201,6 @@ export default class Computer {
         }
     }
 
-    countNumberOfDiceInCurrentDice(currentDice) {
-        const count = {}
-
-        for(let i = 0; i < currentDice.length; i++) {
-            const x = currentDice[i];
-
-            count[x] = count[x] ? count[x] + 1 : 1;
-        }
-
-        return count;
-    }
-
     checkTreeOrFourTheSameDice(requireTheSameDice, count) {
         let score = 0;
         const countDice = Object.values(count);
@@ -221,7 +219,7 @@ export default class Computer {
     }
 
     checkIsFull(count) {
-        const points = 25;
+        const points = 30;
         const requireFirst = 3;
         const requireSecond = 2;
         const countValues = Object.values(count);
@@ -245,7 +243,7 @@ export default class Computer {
 
     checkIsStraight(possibilities, count) {
         let countFalse = 0;
-        const smallStraightPoints = 30;
+        const smallStraightPoints = 35;
         const largeStraightPoints = 50;
         const countKeys = Object.keys(count).join("");
 
@@ -317,7 +315,7 @@ export default class Computer {
 
     addBonusPointsForPlayers() {
         const bonusPoints = 30;
-        const requireScore = 13;
+        const requireScore = 63;
 
         if(this.upperFirstPlayerScore >= requireScore) {
             this.firstPlayerBonus = bonusPoints;
@@ -415,25 +413,35 @@ export default class Computer {
         }
     }
 
+    checkPackIncludes(row, cellsPack) {
+        return cellsPack.some(isRow => isRow.name === row);
+    }
+
     removePossibility() {
         const row = this.computerScoreCell.dataset.row;
         const isUpperPossibility = this.checkPackIncludes(row, this.upperStatsPossibilities);
         const isLowerPossibility = this.checkPackIncludes(row, this.lowerStatsPossibilites);
 
         if(isUpperPossibility) {
-            this.removePossibilityOption(row, this.upperStatsPossibilities);
+            this.removeRowFromCellsPack(row, this.upperStatsPossibilities);
         } else if(isLowerPossibility) {
-            this.removePossibilityOption(row, this.lowerStatsPossibilites);
+            this.removeRowFromCellsPack(row, this.lowerStatsPossibilites);
         }
     }
 
-    checkPackIncludes(row, cellsPack) {
-        return cellsPack.some(isRow => isRow.name === row);
-    }
-
-    removePossibilityOption(row, cellsPack) {
+    removeRowFromCellsPack(row, cellsPack) {
         const removeElementIndex = cellsPack.map(isRow => isRow.name).indexOf(row);
         cellsPack.splice(removeElementIndex, 1);
+    }
+
+    getClickedCell(clickedCell) {
+        this.clickedCell = clickedCell;
+    }
+
+    getCellsNames(cellsStack) {
+        const cellsNames = [];
+        cellsStack.forEach(cell => cellsNames.push(cell.getAttribute("data-cell")));
+        return cellsNames;
     }
 
     getFirstPlayerUpperSum() {

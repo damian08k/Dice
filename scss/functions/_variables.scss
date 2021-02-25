@@ -1,15 +1,14 @@
-// font-family 
-$font-family: 'Red Rose',
-sans-serif;
+// font-family
+$font-family: "Red Rose", sans-serif;
 $font-weight-headings: 700;
 $font-weight-others: 400;
 
-// font-size 
+// font-size
 $main-fz: 16px;
 $lower-fz: 14px;
 $headings-fz: 25px;
 
-// colors 
+// colors
 $special-color: #eda13c;
 $text-color: #eaefea;
 $throws-bgc-color: #cf5fcf;
@@ -17,18 +16,31 @@ $white-color: #fff;
 $black-color: #000;
 $outline-color: #f00;
 
-// border
 $border: 1px solid $black-color;
 
-// margin, padding
 $main-padding: 5px;
 $main-margin: 5px;
 
-// media queries breakpoints
-$breakpoints: (mobileSmall: (min-width: 460px),
-    mobileMedium: (min-width: 640px),
-    mobileXMedium: (min-width: 800px),
-    mobileLarge: (min-width: 1024px),
-    desktopSmall: (min-width: 1280px),
-    desktopMedium: (min-width: 1360px),
-    desktopLarge: (min-width: 1600px))
+$breakpoints: (
+    mobileSmall: (
+        min-width: 460px,
+    ),
+    mobileMedium: (
+        min-width: 640px,
+    ),
+    mobileXMedium: (
+        min-width: 800px,
+    ),
+    mobileLarge: (
+        min-width: 1024px,
+    ),
+    desktopSmall: (
+        min-width: 1280px,
+    ),
+    desktopMedium: (
+        min-width: 1360px,
+    ),
+    desktopLarge: (
+        min-width: 1600px,
+    ),
+);

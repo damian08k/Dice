@@ -15,15 +15,18 @@ export default class Statistics {
     initStatisticsVariables() {
         this.upperFirstPlayerCells = [...document.querySelectorAll("[data-type='upperFirstPlayer']")];
         this.upperSecondPlayerCells = [...document.querySelectorAll("[data-type='upperSecondPlayer']")];
-        this.lowerFirstPlayerCells = [...document.querySelectorAll("[data-type='lowerFirstPlayer']")];
-        this.lowerSecondPlayersCells = [...document.querySelectorAll("[data-type='lowerSecondPlayer']")];
         this.upperFirstPlayerSum = document.querySelector("[data-sum='upperFirstPlayerSum']");
         this.upperSecondPlayerSum = document.querySelector("[data-sum='upperSecondPlayerSum']");
+
+        this.lowerFirstPlayerCells = [...document.querySelectorAll("[data-type='lowerFirstPlayer']")];
+        this.lowerSecondPlayersCells = [...document.querySelectorAll("[data-type='lowerSecondPlayer']")];
         this.lowerFirstPlayerSum = document.querySelector("[data-sum='lowerFirstPlayerSum'");
         this.lowerSecondPlayerSum = document.querySelector("[data-sum='lowerSecondPlayerSum'");
+
         this.firstPlayerBonus = document.querySelector("[data-bonus='firstPlayerBonus']");
-        this.secondPlayerBonus = document.querySelector("[data-bonus='secondPlayerBonus']");
         this.firstPlayerTotalScore = document.querySelector("[data-total='firstPlayerTotal']");
+
+        this.secondPlayerBonus = document.querySelector("[data-bonus='secondPlayerBonus']");
         this.secondPlayerTotalScore = document.querySelector("[data-total='secondPlayerTotal']");
     }
 
@@ -55,9 +58,7 @@ export default class Statistics {
 
             this.addPointsToSpecialCellsMechanism(specialCells, playerScores);
         } else {
-            const specialCells = [
-               ...this.getSecondPlayerCells()
-            ];
+            const specialCells = [...this.getSecondPlayerCells()];
 
             const playerScores = [
                 this.computer.getSecondPlayerUpperSum(),
@@ -115,5 +116,4 @@ export default class Statistics {
         this.firstPlayerTotalScore.textContent = 0;
         this.secondPlayerTotalScore.textContent = 0;
     }
-
 }

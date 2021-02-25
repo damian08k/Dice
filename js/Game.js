@@ -1,9 +1,9 @@
-import RandomNumberGenerator from "./components/RandomNumberGenerator.js";
-import Players from "./components/Players.js";
-import Dice from "./components/Dice.js";
-import Statistics from "./components/Statistics.js";
 import Board from "./components/Board.js";
 import Computer from "./components/Computer.js";
+import Dice from "./components/Dice.js";
+import Players from "./components/Players.js";
+import Statistics from "./components/Statistics.js";
+import RandomNumberGenerator from "./components/RandomNumberGenerator.js";
 
 class Game {
     constructor() {
@@ -12,35 +12,36 @@ class Game {
     }
 
     initVariables() {
-        this.diceThrowBtn = document.querySelector(".player-info__dice-throw");
+        this.board = new Board();
+        this.computer = new Computer();
+        this.dice = new Dice();
+        this.players = new Players();
+        this.statistics = new Statistics();
+        this.randomNumberGenerator = new RandomNumberGenerator();
 
+        this.currentPlayer = 1;
+        this.fiveDice = [];
+        this.numberOfPlayers = 0;
+        this.playersNames = [];
+        this.round = 1;
+        this.throwPossibilites = 2;
+        
+        this.diceThrowBtn = document.querySelector(".player-info__dice-throw");
         this.startGameBtn = document.querySelector(".start-game-window__start-game");
+
         this.startGameWindow = document.querySelector(".start-game-window-container");
         this.mainGameContainer = document.querySelector(".main-container");
+
         this.playerInfoSection = document.querySelector(".player-info");
         this.firstPlayerName = document.querySelector(".stats__first-player");
         this.secondPlayerName = document.querySelector(".stats__second-player");
-        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
-        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
-
-        this.roundNumber = document.querySelector(".player-info__round-number");
         this.playerName = document.querySelector(".player-info__player-name");
+        this.roundNumber = document.querySelector(".player-info__round-number");
         this.throws = [...document.querySelectorAll(".player-info__throw")];
 
-        this.randomNumberGenerator = new RandomNumberGenerator();
-        this.players = new Players();
-        this.dice = new Dice();
-        this.statistics = new Statistics();
-        this.board = new Board();
-        this.computer = new Computer();
-
+        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
+        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
         this.allCells = this.firstColumnCells.concat(this.secondColumnCells);
-        this.playersNames = [];
-        this.fiveDice = [];
-        this.throwPossibilites = 2;
-        this.currentPlayer = 1;
-        this.numberOfPlayers = 0;
-        this.round = 1;
     }
 
     gameMainLogic() {
@@ -108,10 +109,10 @@ class Game {
     }
 
     cellsListener(cellsPack) {
-        cellsPack.forEach(singleCell => singleCell.addEventListener("click", this.cellsListenerFunction));
+        cellsPack.forEach(singleCell => singleCell.addEventListener("click", this.stepsAfterClickInCell));
     }
 
-    cellsListenerFunction = evt => {
+    stepsAfterClickInCell = evt => {
         if(this.fiveDice.length === 0) {
             alert("Nie możesz wpisać wyniku jeśli nie wybrałeś kości!");
         } else {
@@ -120,25 +121,31 @@ class Game {
             if(this.playersNames[1] !== "Komputer") {
                 this.setPlayerOptions(evt.target);
             } else {
-                evt.target.style.pointerEvents = "none";
-                this.computer.computerMove(this.secondColumnCells);
-                const computerCell = this.computer.getComputerCell();
-                const computerScore = this.computer.getComputerScore();
-                this.statistics.setScoreToTable(computerCell, computerScore);
-                const specialCells = this.statistics.getSecondPlayerCells();
-                const playerScores = [
-                    this.computer.getSecondPlayerUpperSum(),
-                    this.computer.getSecondPlayerBonus(),
-                    this.computer.getSecondPlayerLowerSum(),
-                    this.computer.getSecondPlayerTotalScore()
-                ];
-
-                this.statistics.addPointsToSpecialCellsMechanism(specialCells, playerScores);
+                this.computerMoveLogic(evt.target);
             }
             this.showNewRoundNumber();
             this.resetGameOptions();
             this.endGame();
         }
+    }
+
+    computerMoveLogic(target) {
+        target.style.pointerEvents = "none";
+        this.computer.computerMove(this.secondColumnCells);
+
+        const computerCell = this.computer.getComputerCell();
+        const computerScore = this.computer.getComputerScore();
+        this.statistics.setScoreToTable(computerCell, computerScore);
+
+        const specialCells = this.statistics.getSecondPlayerCells();
+        const playerScores = [
+            this.computer.getSecondPlayerUpperSum(),
+            this.computer.getSecondPlayerBonus(),
+            this.computer.getSecondPlayerLowerSum(),
+            this.computer.getSecondPlayerTotalScore()
+        ];
+
+        this.statistics.addPointsToSpecialCellsMechanism(specialCells, playerScores);
     }
 
     setPlayerOptions(clickedCell) {
@@ -154,23 +161,6 @@ class Game {
             this.addClickPossibility(this.firstColumnCells);
         }
         this.playerName.textContent = this.playersNames[this.currentPlayer - 1];
-    }
-
-    resetGameOptions() {
-        this.board.resetBoard();
-        this.restoreThrowPossibilities();
-        this.changeThrowButtonValues("Rzuć kośćmi!", "throw");
-        this.dice.removeDiceListener();
-        this.computer.resetScore();
-        this.fiveDice = [];
-    }
-    
-    removeOnePossibilityToThrow() {
-        this.throws[this.throwPossibilites].style.backgroundColor = "white";
-        this.throwPossibilites--;
-        if(this.throwPossibilites < 0) {
-            this.showIfNoMoreThrows();
-        }
     }
 
     showIfNoMoreThrows() { 
@@ -192,6 +182,16 @@ class Game {
         }
     }
 
+    showNewRoundNumber() {
+        if(this.numberOfPlayers === 1) {
+            this.updateRoundNumber();
+        } else if(this.numberOfPlayers > 1) {
+            if(this.currentPlayer === 1) {
+                this.updateRoundNumber();
+            }
+        }
+    }
+
     updateRoundNumber() {
         const maxRound = 13;
         this.round++;
@@ -201,14 +201,12 @@ class Game {
         }
     }
 
-    showNewRoundNumber() {
-            if(this.numberOfPlayers === 1) {
-                this.updateRoundNumber();
-            } else if(this.numberOfPlayers > 1) {
-                if(this.currentPlayer === 1) {
-                    this.updateRoundNumber();
-                }
-            }
+    removeOnePossibilityToThrow() {
+        this.throws[this.throwPossibilites].style.backgroundColor = "white";
+        this.throwPossibilites--;
+        if(this.throwPossibilites < 0) {
+            this.showIfNoMoreThrows();
+        }
     }
 
     removeCellFromPackAfterClick(cellsPack, clickedCell) {
@@ -242,6 +240,11 @@ class Game {
         }
     }
 
+    initCellsAfterTwoPlayerPlay() {
+        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
+        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
+    }
+
     endGame() {
         const gameResult = this.checkGameResult();
 
@@ -251,6 +254,15 @@ class Game {
                 this.endGameReset();
             }, 300);
         }
+    }
+
+    resetGameOptions() {
+        this.board.resetBoard();
+        this.restoreThrowPossibilities();
+        this.changeThrowButtonValues("Rzuć kośćmi!", "throw");
+        this.dice.removeDiceListener();
+        this.computer.resetScore();
+        this.fiveDice = [];
     }
 
     endGameReset() {
@@ -283,11 +295,6 @@ class Game {
         this.numberOfPlayers = 0;
         this.currentPlayer = 1;
         this.playersNames = [];
-    }
-
-    initCellsAfterTwoPlayerPlay() {
-        this.firstColumnCells = [...document.querySelectorAll(".stats__first-column")];
-        this.secondColumnCells = [...document.querySelectorAll(".stats__second-column")];
     }
 }
 

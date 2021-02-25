@@ -33,9 +33,13 @@
     }
 
     &__section {
-        padding: $main-padding * 2 $main-padding * 10;
-    }
+        padding: $main-padding * 2 $main-padding * 4;
 
+        @include mq(mobileXMedium) {
+            padding-right: $main-padding * 10;
+            padding-left: $main-padding * 10;
+        }
+    }
 }
 
 .rules-header {
@@ -56,7 +60,6 @@
 }
 
 .rules-section {
-
     &::after {
         content: "";
         display: block;

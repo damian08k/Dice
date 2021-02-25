@@ -111,41 +111,6 @@ export default class Dice extends Board {
         }
     }
 
-    removeDiceListener() {
-        this.diceArea.removeEventListener("click", this.insideDiceListenerFunction, true);
-    }
-
-    getDiceToRethrow() {
-        return [...document.querySelectorAll("[data-choose='chose']")];
-    }
-
-    getRethrowDiceIndex() {
-        const rethrowDice = this.getDiceToRethrow();
-        const choseDiceIndex = [];
-
-        rethrowDice.forEach(die => choseDiceIndex.push(parseInt(die.getAttribute("data-die"))));
-
-        return choseDiceIndex;
-    }
-
-    changeDiceAttributesAfterRethrow(newDice) {
-        const rethrowDice = this.getDiceToRethrow();
-
-        for (let i = 0; i < rethrowDice.length; i++) {
-            this.diceClasses.forEach(dieClassName => {
-                if(rethrowDice[i].classList.contains(dieClassName)) {
-                    rethrowDice[i].classList.remove(dieClassName);
-                }
-            })
-            rethrowDice[i].classList.add(this.diceClasses[newDice[i]]);
-            this.changeDiceAttributes(rethrowDice[i]);
-        }
-    }
-
-    getCurrentDice() {
-        return [...this.diceArea.querySelectorAll(".dice-area__die")];
-    }
-
     changeDiceFromClassesToNumbers(dice) {
         dice.forEach((die, dieIndex) => {
             this.diceClasses.forEach((diceClass, classIndex) => {
@@ -166,6 +131,41 @@ export default class Dice extends Board {
             newDice.push(span);
         }
         return newDice;
+    }
+
+    changeDiceAttributesAfterRethrow(newDice) {
+        const rethrowDice = this.getDiceToRethrow();
+
+        for (let i = 0; i < rethrowDice.length; i++) {
+            this.diceClasses.forEach(dieClassName => {
+                if(rethrowDice[i].classList.contains(dieClassName)) {
+                    rethrowDice[i].classList.remove(dieClassName);
+                }
+            })
+            rethrowDice[i].classList.add(this.diceClasses[newDice[i]]);
+            this.changeDiceAttributes(rethrowDice[i]);
+        }
+    }
+
+    removeDiceListener() {
+        this.diceArea.removeEventListener("click", this.insideDiceListenerFunction, true);
+    }
+
+    getDiceToRethrow() {
+        return [...document.querySelectorAll("[data-choose='chose']")];
+    }
+
+    getRethrowDiceIndex() {
+        const rethrowDice = this.getDiceToRethrow();
+        const choseDiceIndex = [];
+
+        rethrowDice.forEach(die => choseDiceIndex.push(parseInt(die.getAttribute("data-die"))));
+
+        return choseDiceIndex;
+    }
+
+    getCurrentDice() {
+        return [...this.diceArea.querySelectorAll(".dice-area__die")];
     }
 
     getDiceClasses() {
