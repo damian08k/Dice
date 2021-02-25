@@ -1,5 +1,4 @@
 .dice-area {
-
     border: $border;
     margin: $main-margin * 2;
 
@@ -24,9 +23,17 @@
         position: relative;
         height: 200px;
         background-color: rgb(3, 70, 3);
+        padding: $main-padding * 3;
 
         @include mq(mobileLarge) {
             height: calc(100% - 37.5px);
+        }
+
+        &--resize {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
         }
     }
 

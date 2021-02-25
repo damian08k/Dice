@@ -4,14 +4,15 @@ export default class Board {
     }
 
     getBoardWidth() {
-        return this.diceArea.offsetWidth;
+        return parseInt(window.getComputedStyle(this.diceArea).getPropertyValue("width"));
     }
 
     getBoardHeight() {
-        return this.diceArea.offsetHeight;
+        return parseInt(window.getComputedStyle(this.diceArea).getPropertyValue("height"));
     }
 
     resetBoard() {
         this.diceArea.innerHTML = "";
+        this.diceArea.classList.remove("dice-area__dice--resize");
     }
 }

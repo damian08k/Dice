@@ -14,16 +14,16 @@ export default class Dice extends Board {
         this.dieSize = 52.8;
     }
 
-    checkOverlapping(pX, pY, positions) {
+    checkOverlapping(pX, pY, positions, maxBoardWidth, maxBoardHeight) {
         for (let i = 0; i < positions.length; i++) {
             const newPosX = pX;
             const oldPosX = positions[i].posX;
-            const rightNewPosX = pX + (this.dieSize + 5);
-            const rightOldPosX = positions[i].posX + (this.dieSize + 5);
+            const rightNewPosX = pX  + (this.dieSize/maxBoardWidth) * 100;
+            const rightOldPosX = positions[i].posX + (this.dieSize/maxBoardWidth) * 100;
             const newPosY = pY;
             const oldPosY = positions[i].posY;
-            const bottomNewPosY = pY + (this.dieSize + 5);
-            const bottomOldPosY = positions[i].posY + (this.dieSize + 5);
+            const bottomNewPosY = pY + (this.dieSize/maxBoardHeight) * 100;
+            const bottomOldPosY = positions[i].posY + (this.dieSize/maxBoardHeight) * 100;
 
             if (rightNewPosX < oldPosX || newPosX > rightOldPosX || newPosY > bottomOldPosY || bottomNewPosY < oldPosY) {
                 continue;
@@ -36,15 +36,23 @@ export default class Dice extends Board {
     addRandomPosition(positions) {
         let posX = 0;
         let posY = 0;
+        const paddingValue = 15;
         const maxBoardWidth = this.getBoardWidth();
         const maxBoardHeight = this.getBoardHeight();
+        const maxPosX = maxBoardWidth - this.dieSize;
+        const maxPosY = maxBoardHeight - this.dieSize;
+        const maxAndMinPosXValues = (maxPosX - this.dieSize - paddingValue) + paddingValue;
+        const maxAndMinPosYValues = (maxPosY - this.dieSize - paddingValue) + paddingValue;
+        const maxWidthForCalculatePosX = (maxBoardWidth - this.dieSize);
+        const maxHeightForCalculatePosY = (maxBoardHeight - this.dieSize);
 
         do {
-            posX = Math.floor(Math.random() * (maxBoardWidth - this.dieSize));
-            posY = Math.floor(Math.random() * (maxBoardHeight - this.dieSize));
-        } while (this.checkOverlapping(posX, posY, positions));
+            posX = Math.floor((Math.floor((Math.random() * maxAndMinPosXValues)))/maxWidthForCalculatePosX * 100);
+            posY = Math.floor((Math.floor((Math.random() * maxAndMinPosYValues)))/maxHeightForCalculatePosY * 100);
+        } while (this.checkOverlapping(posX, posY, positions, maxBoardWidth, maxBoardHeight))
 
         positions.push({ posX, posY });
+
         return positions;
     }
 
@@ -52,11 +60,31 @@ export default class Dice extends Board {
         const span = document.createElement("span");
         positions = this.addRandomPosition(positions);
         span.classList.add("dice-area__die", "fas", this.diceClasses[die]);
-        span.style.left = positions[dieIndex].posX + "px";
-        span.style.top = positions[dieIndex].posY + "px";
+        span.style.left = positions[dieIndex].posX + "%";
+        span.style.top = positions[dieIndex].posY + "%";
         span.setAttribute("data-die", dieIndex);
         span.setAttribute("data-choose", "noChoose");
+
+        this.changeDiePositionAfterBreakBreakpoint(span);
+
         return span;
+    }
+
+    changeDiePositionAfterBreakBreakpoint(span) {
+        const mobileXMediumBreakpoint = window.matchMedia("(max-width: 800px");
+        const mobileLargeBreakpoint = window.matchMedia("(max-width: 1024px)");
+        const breakpointsList = [mobileXMediumBreakpoint, mobileLargeBreakpoint];
+
+        breakpointsList.forEach(breakpoint => {
+            breakpoint.addListener(evt => {
+                if(evt.matches) {
+                    span.style.left = null;
+                    span.style.top = null;
+                    span.style.position = "static";
+                    this.diceArea.classList.add("dice-area__dice--resize");
+                }
+            })
+        })
     }
 
     showDice(fiveDice) {
