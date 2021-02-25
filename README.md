@@ -1,24 +1,23 @@
 # Dice!
 
-Here you can find a dice game which is my first own project in JavaScript. Whole JS code, was created in Object Orientet Programming paradigm. 
+Here you can find a dice game which is my first own project in JavaScript. The whole JS code was created in the Object-Oriented Programming paradigm. 
 
-# Main informations about game
+# Main information about the game
 
 ## Language
 
 **Game is available only in Polish**
 
 ## Start
-If you wanna start the game, just click in big white button in the middle of the screen. After that, game ask you to choose:
-- number of players (1 or 2)
-- names of players (1 - 10 characters)
+If you wanna start the game, just choose the number of the players and name them! 
+You can play against "Computer" (if you choose only one player) or against your friend (if you choose two players).
 
 ## Rules
-If you wanna know the rules, you can clik "Zasady" button in right top corner of the main board screen. After that, you will see a window which contains the whole rules of the game.
+If you wanna know the rules, you can click "Zasady" button in the right top corner of the main board screen. After that, you will see a window that contains the whole rules of the game.
 
 # Important! 
 
-If you want to play that game, you must have a browser which support ES6 (ECMAScript 6)!
+If you want to play that game, you must have a browser that supports ES6 (ECMAScript 6)!
 
 # Technologies I used 
 
@@ -27,7 +26,8 @@ If you want to play that game, you must have a browser which support ES6 (ECMASc
 - JavaScript
 
 # Link
-...... 
+Here you've got a link to the game:
+https://damian08k.github.io/Dice/
 
 # In conclusion
 
