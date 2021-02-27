@@ -1,0 +1,83 @@
+.start-game-window-container {
+    @include flex();
+    width: 100%;
+    height: 100vh;
+    background-color: cadetblue;
+}
+
+.start-game-window {
+    @include flex();
+    flex-direction: column;
+    width: 80%;
+    max-width: 400px;
+    padding: $main-padding * 5;
+    box-shadow: 0 -0 10px 10px $black-color;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: $white-color;
+
+    &__choose-players,
+    &__players-names {
+        margin: $main-margin * 2 0;
+    }
+
+    &__start-game {
+        margin: $main-margin * 2 0;
+        padding: $main-padding * 2;
+        font-size: $main-fz + 10;
+        border-radius: 20px;
+        border-width: 2px;
+    }
+}
+
+.choose-players {
+    text-align: center;
+
+    &__title {
+        flex-basis: 100%;
+    }
+
+    &__count-container {
+        @include flex();
+        padding: $main-padding * 2 0;
+    }
+
+    &__plus-ico {
+        margin: 0 $main-padding * 2;
+        cursor: pointer;
+    }
+
+    &__minus-ico {
+        cursor: pointer;
+    }
+
+    &__title,
+    &__count-players,
+    &__plus-ico,
+    &__minus-ico {
+        font-size: $main-fz + 10;
+    }
+}
+
+.players-names {
+    @include flex();
+    flex-wrap: wrap;
+
+    &__title {
+        font-size: $main-fz + 8;
+    }
+
+    &__name {
+        margin: $main-margin * 2 0;
+        padding: $main-padding;
+        width: 100%;
+        border: 2px solid black;
+        border-radius: 40px;
+        outline-color: $outline-color;
+    }
+
+    &__name--second,
+    &__title--second {
+        display: none;
+    }
+}

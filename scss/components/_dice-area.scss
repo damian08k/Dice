@@ -1,0 +1,50 @@
+.dice-area {
+    border: $border;
+    margin: $main-margin * 2;
+
+    &__title {
+        height: 37.5px;
+        line-height: 37.5px;
+        font-size: $headings-fz;
+        font-weight: $font-weight-headings;
+        text-align: center;
+
+        &::after {
+            content: "";
+            display: block;
+            margin: $main-margin 0 0;
+            width: 100%;
+            height: 1.5px;
+            background-color: $black-color;
+        }
+    }
+
+    &__dice {
+        position: relative;
+        height: 200px;
+        background-color: rgb(3, 70, 3);
+        padding: $main-padding * 3;
+
+        @include mq(mobileLarge) {
+            height: calc(100% - 37.5px);
+        }
+
+        &--resize {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__die {
+        position: absolute;
+        font-size: $main-fz * 3.3;
+        color: yellow;
+        cursor: pointer;
+
+        &--chose {
+            color: red;
+        }
+    }
+}

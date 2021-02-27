@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Gra w kości</title>
+</head>
+
+<body>
+    <div class="start-game-window-container">
+        <div class="start-game-window">
+            <div class="start-game-window__choose-players choose-players">
+                <p class="choose-players__title">Liczba graczy:</p>
+                <div class="choose-players__count-container">
+                    <p class="choose-players__count-players">1</p>
+                    <span class="far fa-plus-square choose-players__plus-ico"></span>
+                    <span class="far fa-minus-square choose-players__minus-ico"></span>
+                </div>
+            </div>
+            <div class="start-game-window__players-names players-names">
+                <label class="players-names__title" for="name-player-one">Nazwa gracza 1:</label>
+                <input class="players-names__name" type="text" name="name-player-one" data-player="one">
+                <label class="players-names__title players-names__title--second" for="name-player-two"
+                    data-player="two">Nazwa gracza 2:</label>
+                <input class="players-names__name players-names__name--second" type="text" name="name-player-two"
+                    data-player="two">
+            </div>
+            <button class="start-game-window__start-game btn">Rozpocznij grę</button>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="game-area">
+            <button class="game-area__rules btn">Zasady</button>
+
+            <div class="player-info game-area__player-info">
+                <h1 class="player-info__round">
+                    Runda
+                    <span class="player-info__round-number">X</span>
+                </h1>
+                <div class="player-info__main-player-info">
+                    <p class="player-info__player">
+                        Gracz:
+                        <span class="player-info__player-name">Y</span>
+                    </p>
+                    <p class="player-info__throws">
+                        <span class="player-info__throws-title">Rzuty:</span>
+                        <span class="player-info__throw"></span>
+                        <span class="player-info__throw"></span>
+                        <span class="player-info__throw"></span>
+                    </p>
+                </div>
+                <button class="player-info__dice-throw btn" data-name="throw">Rzuć kośćmi!</button>
+            </div>
+
+            <div class="dice-area game-area__dice-area">
+                <h2 class="dice-area__title">Wylosowane kości</h2>
+                <div class="dice-area__dice">
+                    <!-- Randomly showing dice in that area -->
+                </div>
+            </div>
+
+            <table class="stats game-area__stats">
+                <caption class="stats__tab-title">Statystyki</caption>
+                <thead>
+                    <tr>
+                        <th class="stats__options">Opcje</th>
+                        <th class="stats__first-player">P1</th>
+                        <th class="stats__second-player">P2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="stats__option-name">Jedynki</th>
+                        <td class="stats__first-column" data-cell="firstUpOne" data-type="upperFirstPlayer" data-row="Jedynki"></td>
+                        <td class="stats__second-column" data-cell="secondUpOne" data-type="upperSecondPlayer" data-row="Jedynki"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Dwójki</th>
+                        <td class="stats__first-column" data-cell="firstUpTwo" data-type="upperFirstPlayer" data-row="Dwójki"></td>
+                        <td class="stats__second-column" data-cell="secondUpTwo" data-type="upperSecondPlayer" data-row="Dwójki"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Trójki</th>
+                        <td class="stats__first-column" data-cell="firstUpThree" data-type="upperFirstPlayer" data-row="Trójki"></td>
+                        <td class="stats__second-column" data-cell="secondUpThree" data-type="upperSecondPlayer" data-row="Trójki"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Czwórki</th>
+                        <td class="stats__first-column" data-cell="firstUpFour" data-type="upperFirstPlayer" data-row="Czwórki"></td>
+                        <td class="stats__second-column" data-cell="secondUpFour" data-type="upperSecondPlayer" data-row="Czwórki"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Piątki</th>
+                        <td class="stats__first-column" data-cell="firstUpFive" data-type="upperFirstPlayer" data-row="Piątki"></td>
+                        <td class="stats__second-column" data-cell="secondUpFive" data-type="upperSecondPlayer" data-row="Piątki"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Szóstki</th>
+                        <td class="stats__first-column" data-cell="firstUpSix" data-type="upperFirstPlayer" data-row="Szóstki"></td>
+                        <td class="stats__second-column" data-cell="secondUpSix" data-type="upperSecondPlayer" data-row="Szóstki"></td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Premia</th>
+                        <td class="stats__special-cell" data-bonus="firstPlayerBonus">0</td>
+                        <td class="stats__special-cell" data-bonus="secondPlayerBonus">0</td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Suma</th>
+                        <td class="stats__special-cell" data-sum="upperFirstPlayerSum">0</td>
+                        <td class="stats__special-cell" data-sum="upperSecondPlayerSum">0</td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">trzy jednakowe</th>
+                        <td class="stats__first-column" data-cell="firstDownOne" data-type="lowerFirstPlayer" data-row="Trzy jednakowe"></td>
+                        <td class="stats__second-column" data-cell="secondDownOne" data-type="lowerSecondPlayer" data-row="Trzy jednakowe"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">cztery jednakowe</th>
+                        <td class="stats__first-column" data-cell="firstDownTwo" data-type="lowerFirstPlayer" data-row="Cztery jednakowe"></td>
+                        <td class="stats__second-column" data-cell="secondDownTwo" data-type="lowerSecondPlayer" data-row="Cztery jednakowe"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Full</th>
+                        <td class="stats__first-column" data-cell="firstDownThree" data-type="lowerFirstPlayer" data-row="Full"></td>
+                        <td class="stats__second-column" data-cell="secondDownThree" data-type="lowerSecondPlayer" data-row="Full"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Mały strit</th>
+                        <td class="stats__first-column" data-cell="firstDownFour" data-type="lowerFirstPlayer" data-row="Mały strit"></td>
+                        <td class="stats__second-column" data-cell="secondDownFour" data-type="lowerSecondPlayer" data-row="Mały strit"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Duży strit</th>
+                        <td class="stats__first-column" data-cell="firstDownFive" data-type="lowerFirstPlayer" data-row="Duży strit"></td>
+                        <td class="stats__second-column" data-cell="secondDownFive" data-type="lowerSecondPlayer" data-row="Duży strit"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Generał</th>
+                        <td class="stats__first-column" data-cell="firstDownSix" data-type="lowerFirstPlayer" data-row="Generał"></td>
+                        <td class="stats__second-column" data-cell="secondDownSix" data-type="lowerSecondPlayer" data-row="Generał"></td>
+                    </tr>
+                    <tr>
+                        <th class="stats__option-name">Szansa</th>
+                        <td class="stats__first-column" data-cell="firstDownSeven" data-type="lowerFirstPlayer" data-row="Szansa"></td>
+                        <td class="stats__second-column" data-cell="secondDownSeven" data-type="lowerSecondPlayer" data-row="Szansa"></td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Suma</th>
+                        <td class="stats__special-cell" data-sum="lowerFirstPlayerSum">0</td>
+                        <td class="stats__special-cell" data-sum="lowerSecondPlayerSum">0</td>
+                    </tr>
+                    <tr class="stats__special">
+                        <th class="stats__option-name">Razem</th>
+                        <td class="stats__special-cell" data-total="firstPlayerTotal">0</td>
+                        <td class="stats__special-cell" data-total="secondPlayerTotal">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="rules-window-container">
+        <div class="rules-window">
+            <div class="rules-window__header rules-header">
+                <h2 class="rules-header__title">Zasady gry w kości</h2>
+                <span class="far fa-times-circle rules-header__close-window"></span>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Witaj w grze w kości!</h2>
+                <p class="rules-section__desc">Poniższa odmiana gry w kości jest projektem tworzonym w ramach nauki.
+                    Zasady różnią się w nieznacznym stopniu od "ogólnie przyjętych" zasad gry w kości. Panujące w grze
+                    zasady zostały poniżej dokładnie opisane. <br>
+                    Jeżeli chcesz wyłączyć okno zasad, kliknij w krzyżyk w prawym górnym rogu okna. <br>
+                    W każdym momencie możesz włączyć okno zasad, klikając w przycisk z napisem "Zasady".
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Czym jest gra w kości</h2>
+                <p class="rules-section__desc">Gra w kości polega na rzucaniu kośćmi tak, aby uzyskać odpowiednią ilość
+                    oczek. <br>
+                    Może się wydawać, iż gra polega w dużym stopniu na szczęściu, jednak jest to złudny trop. W grze
+                    liczą się również umiejętności kalkulacji oraz podejmowania odpowiednich wyborów.
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Kolejki oraz gracze</h2>
+                <p class="rules-section__desc">
+                    W grze jest dostępnych 13 rund. W każdej z nich, każdy z graczy, których jest maksymalnie dwóch
+                    <span class="rules-section__special-info">(istnieją dwie opcje wyboru gry: gracz vs komputer lub gracz vs gracz; wybór zależy od grającego i jest dokonywany przed rozpoczęciem gry)</span>
+                    ma do dyspozycji trzy rzuty, z czego pierwszy z nich jest rzutem "początkowym", a drugi oraz trzeci
+                    są rzutami "przerzucającymi". W drugim oraz trzecim rzucie, wyrzuca się jedynie wybrane przez gracza
+                    kości. Istnieje również opcja zrezygnowania z dodatkowego rzutu - należy wtedy wybrać jedną z
+                    możliwości w tabeli statystyk. Decyzja należy do gracza.
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Zapisywanie wyników</h2>
+                <p class="rules-section__desc">
+                    Wyniki z rzutów zapisywane są w tabeli zawsze po trzecim
+                    <span class="rules-section__special-info">(bądź drugim lub pierwszym - jeśli gracz zrezygnuje z dodatkowych rzutów)</span>
+                    rzucie. <br>
+                    W wierszach tabeli zapisane jest 13 kategorii, które zostały poniżej opisane. <br>
+                    Kolumny tabeli to kolejni gracze. Każdy z graczy sam wybiera, do której kategorii zapisywane będą
+                    punkty. Następuje to poprzez kliknięcie odpowiedniej komórki w odpowiednim wierszu tabeli. <br>
+                    <span class="rules-section__special-info">Każda z kategorii może zostać wybrana tylko jeden raz!</span>
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Kategorie górnej części tabeli</h2>
+                <p class="rules-section__desc">
+                    Do kategorii w górnej części tabeli należą:
+                </p>
+                <ul class="rules-section__categories">
+                    <li class="rules-section__category">Jedynki</li>
+                    <li class="rules-section__category">Dwójki</li>
+                    <li class="rules-section__category">Trójki</li>
+                    <li class="rules-section__category">Czwórki</li>
+                    <li class="rules-section__category">Piątki</li>
+                    <li class="rules-section__category">Szóstki</li>
+                </ul>
+
+                <p class="rules-section__desc">W wierszu jednej z powyższych kategorii zostaje wpisana suma oczek
+                    wskazujących wybraną liczbę. <br>
+                    Przykładowo, jeżeli gracz wyrzuci kości
+                    <span class="rules-section__special-info">5, 2, 5, 5, 3</span> oraz wybierze kategorię
+                    <span class="rules-section__special-info">"piątki"</span> to uzyska
+                    <span class="rules-section__special-info">15 punktów (3*5)</span>
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">
+                    Premia z górnej części tabeli
+                </h2>
+                <p class="rules-section__desc">
+                    Jeżeli suma wyników otrzymanych w kategoriach w górnej części tabeli wyniesie
+                    <span class="rules-section__special-info">co najmniej 63 punkty lub więcej</span> to gracz otrzymuje
+                    premię w wysokości 35 punktów - w przeciwnym wypadku, po zakończeniu gry, pole premii automatycznie
+                    uzupełnia się o 0 punktów. Premia jest przyznawana jednorazowo. <br>
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Kategorie w dolnej części tabeli</h2>
+                <p class="rules-section__desc">
+                <ul class="rules-section__categories">
+                    <li class="rules-section__category">
+                        3 jednakowe - jeżeli w wyrzuconych kościach występują
+                        <span class="rules-section__special-info">co najmniej 3 jednakowe liczby oczek</span>, jako
+                        ilość punktów uzyskuje się sumę ze wszystkich pięciu kości. <br>
+                        Przykładowo, dla układu <span class="rules-section__special-info">5, 6, 2, 6, 6</span> gracz
+                        uzyskałby <span class="rules-section__special-info">25 punktów.</span>
+                    </li>
+                    <li class="rules-section__category">
+                        4 jednakowe - analogicznie, jak wyżej, ale muszą być co najmniej cztery jednakowe liczby oczek.
+                    </li>
+                    <li class="rules-section__category">
+                        Full - jeżeli w wyrzuconych kościach występują
+                        <span class="rules-section__special-info">3 jednakowe liczby oczek oraz 2 inne jednakowe, np. 6, 6, 6, 3, 3</span>
+                        to gracz <span class="rules-section__special-info">zawsze otrzymuje 30 punktów</span>.
+                    </li>
+                    <li class="rules-section__category">
+                        Mały strit - jeżeli w układzie występują cztery kolejne liczby oczek,
+                        <span class="rules-section__special-info">np. 2, 3, 4, 5, 1 lub 6, 1, 2, 3, 4 itp.</span>, to
+                        gracz <span class="rules-section__special-info">zawsze otrzymuje 35 punktów.</span>
+                    </li>
+                    <li class="rules-section__category">
+                        Duży strit - analogicznie, jak wyżej, ale liczby oczek ze wszystkich pięciu kości, muszą być
+                        kolejnymi liczbami. <br>
+                        Przykładowo, dla zestawu <span class="rules-section__special-info">2, 3, 4, 5, 6</span> gracz
+                        otrzymuje <span class="rules-section__special-info">50 puntków.</span>
+                    </li>
+                    <li class="rules-section__category">
+                        Generał - jeżeli liczba oczek na wszystkich pięciu kościach jest jednakowa,
+                        <span class="rules-section__special-info">np. 1, 1, 1, 1, 1</span> to gracz otrzymuje
+                        <span class="rules-section__special-info">60 punktów.</span>
+                    </li>
+                    <li class="rules-section__category">
+                        Szansa - bez znaczenia od układu kości, gracz zawsze otrzymuje sumę oczek ze wszystkich kości.
+                    </li>
+                </ul>
+                </p>
+                <p class="rules-section__desc">
+                    Każda z dostępnych kategorii może zostać wybrana
+                    <span class="rules-section__special-info">tylko jeden raz</span>. Jeżeli wyrzucona kombinacja kości
+                    nie spełnia określonych wymogów, lub spełnia, ale dana kategoria została już wcześniej wybrana,
+                    należy wybrać jedną z wolnych jeszcze kategorii. Niestety taki wybór jest czasami konieczny. <br>
+                    <span class="rules-section__special-info">Podczas gry nie jest sprawdzane, czy wyrzucone kości spełniają któryś z wyżej opisanych warunków. Jeżeli gracz nie będzie spełniał tych warunków i wybierze jedno z pól w dolnej części tabeli - otrzyma on 0 punktów.</span>
+                    <br>
+                    <span class="rules-section__special-info">Dla lepszego zobrazowania sytuacji: gracz losuje kości 2, 3, 4, 5, 6 i wybiera kategorię "3 jednakowe" - otrzymuje on do tej kategorii 0 punktów.</span>
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <h2 class="rules-section__title">Zakończenie gry</h2>
+                <p class="rules-section__desc">
+                    Po ostatniej rundzie, kiedy wszystkie kategorie są zapełnione, następuje koniec gry. <br>
+                    Wygrywa ten gracz, który zdobył łącznie największą ilość punktów.
+                </p>
+            </div>
+            <div class="rules-window__section rules-section">
+                <p class="rules-section__desc">Zasady zostały opracowane na podstawie zasad dostępnych na stronie:
+                    <a href="http://snob-shop.pl/zasady-gry-w-kosci/">http://snob-shop.pl/zasady-gry-w-kosci/</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/rules.js"></script>
+    <script type="module" src="./js/Game.js"></script>
+    <script nomodule src="./js/fallback.js"></script>
+</body>
+
+</html>

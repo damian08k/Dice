@@ -1,0 +1,62 @@
+.stats {
+    border-collapse: collapse;
+    border: $border;
+    margin: $main-margin * 2;
+
+    @include mq(mobileLarge) {
+        height: calc(100% - 41px - 20px);
+    }
+
+    th,
+    tr,
+    td {
+        border: $border;
+    }
+
+    &__tab-title {
+        padding: $main-padding;
+        font-size: $headings-fz;
+        font-style: italic;
+        color: $special-color;
+    }
+
+    &__options {
+        width: 20%;
+
+        @include mq(mobileLarge) {
+            font-size: $main-fz + 2;
+        }
+    }
+
+    &__first-player,
+    &__second-player {
+        padding: $main-padding;
+    }
+
+    &__first-player,
+    &__second-player,
+    &__special {
+        text-align: center;
+
+        @include mq(mobileLarge) {
+            font-size: $main-fz + 2;
+        }
+    }
+
+
+    &__option-name {
+        padding: $main-padding;
+    }
+
+    &__first-column,
+    &__second-column {
+        width: 40%;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__special {
+        background-color: $special-color;
+    }
+
+}

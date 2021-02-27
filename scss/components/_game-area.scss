@@ -1,0 +1,75 @@
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(100px, auto);
+
+    @include mq(mobileXMedium) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include mq(mobileLarge) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    &__rules {
+        grid-column: 1;
+        grid-row: 1/2;
+        justify-self: self-end;
+        align-self: stretch;
+        margin: $main-margin * 2;
+        height: 30px;
+        width: 80px;
+        font-size: $main-fz;
+
+        @include mq(mobileXMedium) {
+            grid-column: 1/-1;
+        }
+
+    }
+
+    &__player-info {
+        grid-column: 1;
+        grid-row: 2/3;
+
+        @include mq(mobileXMedium) {
+            grid-column: 1/2;
+        }
+
+        @include mq(mobileLarge) {
+            margin-top: 51px;
+            grid-column: 2/4;
+            grid-row: 1/2;
+        }
+    }
+
+    &__dice-area {
+        grid-column: 1;
+        grid-row: 3/4;
+
+        @include mq(mobileXMedium) {
+            grid-column: 2/3;
+            grid-row: 2/3;
+        }
+
+        @include mq(mobileLarge) {
+            grid-column: 2/-1;
+            grid-row: 2/-1;
+        }
+    }
+
+    &__stats {
+        grid-column: 1;
+        grid-row: 4/5;
+
+        @include mq(mobileXMedium) {
+            grid-column: 1/-1;
+            grid-row: 3/5;
+        }
+
+        @include mq(mobileLarge) {
+            grid-column: 1/2;
+            grid-row: 1/-1;
+        }
+    }
+}
